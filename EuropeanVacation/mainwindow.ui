@@ -6,16 +6,37 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>826</width>
+    <height>482</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget"/>
-  <widget class="QMenuBar" name="menubar"/>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>826</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menudeez_nuts">
+    <property name="title">
+     <string>Contact Us</string>
+    </property>
+    <addaction name="actionDeez_nuts"/>
+   </widget>
+   <addaction name="menudeez_nuts"/>
+  </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionDeez_nuts">
+   <property name="text">
+    <string>Runtime Terror, Inc.</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

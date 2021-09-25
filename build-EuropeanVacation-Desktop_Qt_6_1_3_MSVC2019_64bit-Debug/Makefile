@@ -244,6 +244,7 @@ Makefile: ..\EuropeanVacation\EuropeanVacation.pro ..\..\..\..\Programming\Qt\6.
 		..\..\..\..\Programming\Qt\6.1.3\msvc2019_64\mkspecs\features\qt_config.prf \
 		..\..\..\..\Programming\Qt\6.1.3\msvc2019_64\mkspecs\win32-msvc\qmake.conf \
 		..\..\..\..\Programming\Qt\6.1.3\msvc2019_64\mkspecs\features\spec_post.prf \
+		.qmake.stash \
 		..\..\..\..\Programming\Qt\6.1.3\msvc2019_64\mkspecs\features\exclusive_builds.prf \
 		..\..\..\..\Programming\Qt\6.1.3\msvc2019_64\mkspecs\common\msvc-version.conf \
 		..\..\..\..\Programming\Qt\6.1.3\msvc2019_64\mkspecs\features\toolchain.prf \
@@ -274,8 +275,8 @@ Makefile: ..\EuropeanVacation\EuropeanVacation.pro ..\..\..\..\Programming\Qt\6.
 		..\..\..\..\Programming\Qt\6.1.3\msvc2019_64\lib\Qt6Gui.prl \
 		..\..\..\..\Programming\Qt\6.1.3\msvc2019_64\lib\Qt6Core.prl \
 		..\..\..\..\Programming\Qt\6.1.3\msvc2019_64\lib\Qt6EntryPoint.prl \
-		.qmake.stash \
 		..\..\..\..\Programming\Qt\6.1.3\msvc2019_64\mkspecs\features\build_pass.prf \
+		..\EuropeanVacation\resources.qrc \
 		..\..\..\..\Programming\Qt\6.1.3\msvc2019_64\lib\Qt6Widgetsd.prl \
 		..\..\..\..\Programming\Qt\6.1.3\msvc2019_64\lib\Qt6Guid.prl \
 		..\..\..\..\Programming\Qt\6.1.3\msvc2019_64\lib\Qt6Cored.prl \
@@ -441,6 +442,7 @@ Makefile: ..\EuropeanVacation\EuropeanVacation.pro ..\..\..\..\Programming\Qt\6.
 ..\..\..\..\Programming\Qt\6.1.3\msvc2019_64\mkspecs\features\qt_config.prf:
 ..\..\..\..\Programming\Qt\6.1.3\msvc2019_64\mkspecs\win32-msvc\qmake.conf:
 ..\..\..\..\Programming\Qt\6.1.3\msvc2019_64\mkspecs\features\spec_post.prf:
+.qmake.stash:
 ..\..\..\..\Programming\Qt\6.1.3\msvc2019_64\mkspecs\features\exclusive_builds.prf:
 ..\..\..\..\Programming\Qt\6.1.3\msvc2019_64\mkspecs\common\msvc-version.conf:
 ..\..\..\..\Programming\Qt\6.1.3\msvc2019_64\mkspecs\features\toolchain.prf:
@@ -471,8 +473,8 @@ Makefile: ..\EuropeanVacation\EuropeanVacation.pro ..\..\..\..\Programming\Qt\6.
 ..\..\..\..\Programming\Qt\6.1.3\msvc2019_64\lib\Qt6Gui.prl:
 ..\..\..\..\Programming\Qt\6.1.3\msvc2019_64\lib\Qt6Core.prl:
 ..\..\..\..\Programming\Qt\6.1.3\msvc2019_64\lib\Qt6EntryPoint.prl:
-.qmake.stash:
 ..\..\..\..\Programming\Qt\6.1.3\msvc2019_64\mkspecs\features\build_pass.prf:
+..\EuropeanVacation\resources.qrc:
 ..\..\..\..\Programming\Qt\6.1.3\msvc2019_64\lib\Qt6Widgetsd.prl:
 ..\..\..\..\Programming\Qt\6.1.3\msvc2019_64\lib\Qt6Guid.prl:
 ..\..\..\..\Programming\Qt\6.1.3\msvc2019_64\lib\Qt6Cored.prl:
