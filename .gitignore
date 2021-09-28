@@ -57,3 +57,6 @@ build-EuropeanVacation-Desktop_Qt_6_1_3_MSVC2019_64bit-Debug/debug/EuropeanVacat
 build-EuropeanVacation-Desktop_Qt_6_1_3_MSVC2019_64bit-Debug/debug/EuropeanVacation.pdb
 build-EuropeanVacation-Desktop_Qt_6_1_3_MSVC2019_64bit-Debug/debug/EuropeanVacation.ilk
 build-EuropeanVacation-Desktop_Qt_6_1_3_MSVC2019_64bit-Debug/debug/EuropeanVacation.exe
+*.exe
+*.ilk
+*.pdb
