@@ -60,3 +60,8 @@ build-EuropeanVacation-Desktop_Qt_6_1_3_MSVC2019_64bit-Debug/debug/EuropeanVacat
 *.exe
 *.ilk
 *.pdb
+*.obj
+*.pdb
+*.pdb
+*.ilk
+*.exe
