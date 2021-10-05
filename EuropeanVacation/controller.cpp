@@ -7,11 +7,11 @@ Controller::Controller(QObject *parent) : QObject(parent) {
     m_database.setDatabaseName(path);
     if (!m_database.open()) {
 
-        qDebug() << "PROBLEM OPENING DATABASE." << endl;
+        qDebug() << "PROBLEM OPENING DATABASE.";
     }
     else {
 
-        qDebug() << "DATABASE OPENED." << endl;
+        qDebug() << "DATABASE OPENED.";
     }
 }
 
@@ -23,29 +23,37 @@ Controller::~Controller() {
 QSqlQueryModel *Controller::getDistancesQueryModel(QString query) {
 
     QSqlQueryModel* model = new QSqlQueryModel();
-    QSqlQuery qry;
-    qry.prepare(query);
+//    QSqlQuery qry;
+//    qry.prepare(query);
 
-    if (!qry.exec()) {
+//    if (!qry.exec()) {
 
-        qDebug() << "ERROR IN getQueryModel(" << query << ")" << endl;
-    }
+//        qDebug() << "ERROR IN getQueryModel(" << query << ")";
+//    }
 
-    model->setQuery(qry);
+    model->setQuery(query);
+    if (model->lastError().isValid())
+        qDebug() << model->lastError();
+    else
+        qDebug() << model;
     return model;
 }
 
 QSqlQueryModel *Controller::getFoodsQueryModel(QString query) {
 
     QSqlQueryModel* model = new QSqlQueryModel();
-    QSqlQuery qry;
-    qry.prepare(query);
+//    QSqlQuery qry;
+//    qry.prepare(query);
 
-    if (!qry.exec()) {
+//    if (!qry.exec()) {
 
-        qDebug() << "ERROR IN getQueryModel(" << query << ")" << endl;
-    }
+//        qDebug() << "ERROR IN getQueryModel(" << query << ")";
+//    }
 
-    model->setQuery(qry);
+    model->setQuery(query);
+    if (model->lastError().isValid())
+        qDebug() << model->lastError();
+    else
+        qDebug() << model;
     return model;
 }

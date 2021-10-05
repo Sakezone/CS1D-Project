@@ -71,18 +71,16 @@ void MainWindow::on_viewCitiesAndFoods_pushButton_clicked()
     ui->stackedWidget->setCurrentWidget(ui->viewCitiesAndFoods_page);
 }
 
-void MainWindow::on_userSelectCities_comboBox_activated(const QString &arg1)
+void MainWindow::on_userSelectCities_comboBox_currentTextChanged(const QString &arg1)
 {
-    QString query = "select EndCity, Distance from Distances where StartCity = '"+arg1+"';";
-    QString query2 = "select Food, Cost from Foods where City = '"+arg1+"';";
-
-    ui->userViewCities_tableView->setModel(m_controller->getDistancesQueryModel(query));
-    ui->userViewFoods_tableView->setModel(m_controller->getFoodsQueryModel(query2));
+    ui->userViewCities_tableView->setModel(m_controller->getDistancesQueryModel("select EndCity, Distance from Distances where StartCity = '"+arg1+"';"));
+    ui->userViewFoods_tableView->setModel(m_controller->getFoodsQueryModel("select Food, Cost from Foods where City = '"+arg1+"';"));
 }
 
 void MainWindow::on_returnToUserPage_pushButton_clicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->user_page);
+    qDebug() << "BACK BUTTON PRESSED";
 }
 
 void MainWindow::on_userLogout_pushButton_clicked()
@@ -94,15 +92,6 @@ void MainWindow::on_adminEdit_pushButton_clicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->adminEdit_page);
 }
-
-void MainWindow::on_adminChooseCities_comboBox_activated(const QString &arg1)
-{
-    QString query = "select Food, Cost from Foods where City = '"+arg1+"';";
-
-    ui->adminViewFoods_tableView->setModel(m_controller->getFoodsQueryModel(query));
-    ui->editFoodCity_label->setText(arg1);
-}
-
 
 void MainWindow::on_adminViewFoods_tableView_activated(const QModelIndex &index)
 {
@@ -149,3 +138,10 @@ void MainWindow::on_adminLogout_pushButton_clicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->login_page);
 }
+
+void MainWindow::on_adminChooseCities_comboBox_currentTextChanged(const QString &arg1)
+{
+    ui->adminViewFoods_tableView->setModel(m_controller->getFoodsQueryModel("select Food, Cost from Foods where City = '"+arg1+"';"));
+    ui->editFoodCity_label->setText(arg1);
+}
+
