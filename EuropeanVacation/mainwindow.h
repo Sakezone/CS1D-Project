@@ -41,6 +41,28 @@ private slots:
 
     void on_adminChooseCities_comboBox_currentTextChanged(const QString &arg1);
 
+    void on_editPrice_pushButton_clicked();
+
+    void resetAdminEditPage();
+
+    void on_returnToAdminPage_pushButton_clicked();
+
+    void on_deleteFood_pushButton_clicked();
+
+    void on_addNewFood_pushButton_clicked();
+
+    void on_resetEditPage_pushButton_clicked();
+
+    void on_adminUpload_pushButton_clicked();
+
+    void on_returnToAdminPage_pushButton2_clicked();
+
+    void on_adminUploadChooseCities_comboBox_currentTextChanged(const QString &arg1);
+
+    void on_adminUploadCities_pushButton_clicked();
+
+    void on_adminUploadFoods_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     Controller *m_controller;
