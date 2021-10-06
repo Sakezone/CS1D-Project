@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>5</number>
     </property>
     <widget class="QWidget" name="login_page">
      <widget class="QWidget" name="verticalLayoutWidget">
@@ -218,7 +218,7 @@
         <x>20</x>
         <y>50</y>
         <width>431</width>
-        <height>361</height>
+        <height>321</height>
        </rect>
       </property>
      </widget>
@@ -313,6 +313,116 @@
         </widget>
        </item>
       </layout>
+     </widget>
+     <widget class="QPushButton" name="returnToAdminPage_pushButton">
+      <property name="geometry">
+       <rect>
+        <x>660</x>
+        <y>10</y>
+        <width>93</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Back</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="resetEditPage_pushButton">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>390</y>
+        <width>93</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Reset</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="adminUpload_page">
+     <widget class="QPushButton" name="returnToAdminPage_pushButton2">
+      <property name="geometry">
+       <rect>
+        <x>680</x>
+        <y>20</y>
+        <width>93</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Back</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="adminUploadChooseCities_comboBox">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>20</y>
+        <width>251</width>
+        <height>22</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QTableView" name="adminUploadViewCities_tableView">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>60</y>
+        <width>421</width>
+        <height>361</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QTableView" name="adminUploadViewFoods_tableView">
+      <property name="geometry">
+       <rect>
+        <x>520</x>
+        <y>61</y>
+        <width>261</width>
+        <height>191</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="adminUploadCities_pushButton">
+      <property name="geometry">
+       <rect>
+        <x>520</x>
+        <y>280</y>
+        <width>93</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Upload Cities</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="adminUploadFoods_pushButton">
+      <property name="geometry">
+       <rect>
+        <x>670</x>
+        <y>280</y>
+        <width>93</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Upload Foods</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="adminUploadReset_pushButton">
+      <property name="geometry">
+       <rect>
+        <x>520</x>
+        <y>340</y>
+        <width>93</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Reset</string>
+      </property>
      </widget>
     </widget>
    </widget>
