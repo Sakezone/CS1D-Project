@@ -33,6 +33,12 @@ private slots:
 
     void on_adminViewFoods_tableView_activated(const QModelIndex &index);
 
+    void on_contactUs_pushButton_clicked();
+
+    void on_submit_pushButton_clicked();
+
+    void on_return_pushButton_clicked();
+
     void on_userLogout_Pushbutton_clicked();
 
     void on_adminLogout_pushButton_clicked();

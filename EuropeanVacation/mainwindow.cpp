@@ -84,6 +84,25 @@ void MainWindow::on_returnToUserPage_pushButton_clicked()
     qDebug() << "BACK BUTTON PRESSED";
 }
 
+void MainWindow::on_contactUs_pushButton_clicked()
+{
+    QPixmap icon (":images/runtimeerror.png");
+    ui->iconLabel->setPixmap(icon);
+    ui->stackedWidget->setCurrentWidget(ui->contactUs_Page);
+}
+
+void MainWindow::on_submit_pushButton_clicked()
+{
+    QMessageBox::information(this, "Submitted", "Thank you for contacting Runtime Terror. Your information will be forwarded to the proper team.");
+    ui->userInputBox->clear();
+    ui->stackedWidget->setCurrentWidget(ui->user_page);
+}
+
+void MainWindow::on_return_pushButton_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->user_page);
+}
+
 void MainWindow::on_userLogout_pushButton_clicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->login_page);

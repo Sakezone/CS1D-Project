@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/images">
         <file>background.jpg</file>
+        <file>runtimeerror.png</file>
     </qresource>
 </RCC>
