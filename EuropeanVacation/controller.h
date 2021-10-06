@@ -9,6 +9,7 @@
 #include <QSqlError>
 #include <QDebug>
 #include <QMessageBox>
+#include <QFileDialog>
 using namespace std;
 
 class Controller : public QObject {
@@ -23,7 +24,11 @@ public:
 //    void loadCities();
     QSqlQueryModel *getDistancesQueryModel(QString query);
     QSqlQueryModel *getFoodsQueryModel(QString query);
-
+    void *editFoodCostQuery(QString city, QString food, double cost);
+    void *deleteFoodQuery(QString city, QString food, double cost);
+    void *addFoodQuery(QString city, QString food, double cost);
+    void *uploadCitiesFile();
+    void *uploadFoodsFile();
 private:
     QSqlDatabase m_database;
 
