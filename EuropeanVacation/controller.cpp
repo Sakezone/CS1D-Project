@@ -80,6 +80,8 @@ void *Controller::editFoodCostQuery(QString city, QString food, double cost) {
     }
 
     qry.clear();
+
+    return 0;
 }
 
 void *Controller::deleteFoodQuery(QString city, QString food, double cost)
@@ -95,6 +97,8 @@ void *Controller::deleteFoodQuery(QString city, QString food, double cost)
         qDebug() << food << " FROM " << city << " REMOVED!";
 
     qry.clear();
+
+    return 0;
 }
 
 void *Controller::addFoodQuery(QString city, QString food, double cost) {
@@ -114,6 +118,8 @@ void *Controller::addFoodQuery(QString city, QString food, double cost) {
         qDebug() << "ADDED " << city << ", " << food << ", " << costAsString;
 
     qry.clear();
+
+    return 0;
 }
 
 void *Controller::uploadCitiesFile() {
@@ -151,6 +157,8 @@ void *Controller::uploadCitiesFile() {
             }
         }
     }
+
+    return 0;
 }
 
 void *Controller::uploadFoodsFile() {
@@ -188,6 +196,8 @@ void *Controller::uploadFoodsFile() {
             }
         }
     }
+
+    return 0;
 }
 
 
