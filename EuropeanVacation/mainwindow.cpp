@@ -303,3 +303,12 @@ void MainWindow::on_adminUploadFoods_pushButton_clicked()
     fillCitiesComboBoxes();
 }
 
+void MainWindow::on_planTrip_pushButton_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->planTrip_Page);
+}
+
+void MainWindow::on_parisTrip_pushButton_clicked()
+{
+    m_controller->parisTrip();
+}

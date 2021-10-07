@@ -69,6 +69,10 @@ private slots:
 
     void on_adminUploadFoods_pushButton_clicked();
 
+    void on_planTrip_pushButton_clicked();
+
+    void on_parisTrip_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     Controller *m_controller;
