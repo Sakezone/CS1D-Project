@@ -29,6 +29,7 @@ public:
     void *addFoodQuery(QString city, QString food, double cost);
     void *uploadCitiesFile();
     void *uploadFoodsFile();
+    void parisTrip();
 private:
     QSqlDatabase m_database;
 
