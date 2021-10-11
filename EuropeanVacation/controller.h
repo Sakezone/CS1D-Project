@@ -36,7 +36,7 @@ public:
     void *createTripList();
     void *displayTripList();
 
-    QVector<Trip> tripList;
+    QVector<Trip*> tripList;
 
 private:
     QSqlDatabase m_database;
