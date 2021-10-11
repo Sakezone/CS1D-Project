@@ -10,6 +10,9 @@
 #include <QDebug>
 #include <QMessageBox>
 #include <QFileDialog>
+#include <QVector>
+#include "trip.h"
+
 using namespace std;
 
 class Controller : public QObject {
@@ -30,6 +33,11 @@ public:
     void *uploadCitiesFile();
     void *uploadFoodsFile();
     void parisTrip();
+    void *createTripList();
+    void *displayTripList();
+
+    QVector<Trip> tripList;
+
 private:
     QSqlDatabase m_database;
 

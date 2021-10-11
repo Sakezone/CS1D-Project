@@ -3,6 +3,8 @@
 #include <QPixmap>
 #include <QPalette>
 
+static QList<Trip*> tripList;
+
 MainWindow::MainWindow(Controller *controller, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -286,7 +288,6 @@ void MainWindow::on_adminUploadChooseCities_comboBox_currentTextChanged(const QS
 {
     ui->adminUploadViewCities_tableView->setModel(m_controller->getDistancesQueryModel("select EndCity, Distance from Distances where StartCity = '"+arg1+"';"));
     ui->adminUploadViewFoods_tableView->setModel(m_controller->getFoodsQueryModel("select Food, Cost from Foods where City = '"+arg1+"';"));
-
 }
 
 
@@ -310,5 +311,6 @@ void MainWindow::on_planTrip_pushButton_clicked()
 
 void MainWindow::on_parisTrip_pushButton_clicked()
 {
-    m_controller->parisTrip();
+    m_controller->displayTripList();
 }
+

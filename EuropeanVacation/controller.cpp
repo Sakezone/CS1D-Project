@@ -13,6 +13,11 @@ Controller::Controller(QObject *parent) : QObject(parent) {
 
         qDebug() << "DATABASE OPENED.";
     }
+
+//    createTripList();
+//    displayTripList();
+//    displayTripList();
+//    displayTripList();
 }
 
 Controller::~Controller() {
@@ -200,10 +205,43 @@ void *Controller::uploadFoodsFile() {
     return 0;
 }
 
+void *Controller::createTripList()
+{
+    QSqlTableModel model;
+    model.setTable("Distances");
+    model.select();
+
+    for (int i = 0; i < model.rowCount(); i++) {
+
+        Trip* entry = new Trip();
+        entry->setStartCity(model.record(i).value("StartCity").toString());
+        entry->setEndCity(model.record(i).value("EndCity").toString());
+        entry->setDistance(model.record(i).value("Distance").toInt());
+
+        this->tripList.append(entry);
+
+//        qDebug() << "DATABASE ROW :" << i;
+//        qDebug() << "    " << tripList[i]->getStartCity() << ", " << tripList[i]->getEndCity()
+//                 << ", " << tripList[i]->getDistance();
+    }
+
+    displayTripList();
+}
+
+void *Controller::displayTripList()
+{
+    for (int i = 0; i < tripList.size(); i++) {
+
+        qDebug() << "DATABASE ROW :" << i;
+        qDebug() << tripList[i]->getStartCity();
+        qDebug() << tripList[i]->getEndCity();
+        qDebug() << tripList[i]->getDistance();
+
+    }
+}
+
 void Controller::parisTrip()
 {
-
-
     return;
 }
 

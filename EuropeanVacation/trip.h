@@ -1,15 +1,19 @@
 #ifndef TRIP_H
 #define TRIP_H
 
-#include "controller.h"
+#include <QString>
+#include <QObject>
 
-class Trip
+class Trip : public QObject
 {
+    Q_OBJECT
 private:
     QString startCity;
     QString endCity;
     int distance;
 public:
+    explicit Trip(QObject *parent = nullptr);
+//    Trip();
     QString getStartCity();
     QString getEndCity();
     int getDistance();
