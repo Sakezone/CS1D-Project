@@ -78,4 +78,5 @@ private:
     Ui::MainWindow *ui;
     Controller *m_controller;
 };
+
 #endif // MAINWINDOW_H

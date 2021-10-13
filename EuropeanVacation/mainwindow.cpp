@@ -312,8 +312,7 @@ void MainWindow::on_planTrip_pushButton_clicked()
 
 void MainWindow::on_parisTrip_pushButton_clicked()
 {
-    qDebug() << "CALLING FROM MAINWINDOW!!!!!!!!!!!!!!!!";
-    m_controller->displayTripList();
+    m_controller->parisTrip();
 }
 
 

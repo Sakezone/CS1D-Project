@@ -15,7 +15,6 @@ private:
     int distance;
 public:
     explicit Trip(QObject *parent = nullptr);
-//    Trip();
     QString getStartCity() const;
     QString getEndCity() const;
     int getDistance() const;

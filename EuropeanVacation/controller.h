@@ -35,9 +35,12 @@ public:
     void addFoodQuery(QString city, QString food, double cost);
     void uploadCitiesFile();
     void uploadFoodsFile();
-    void parisTrip();
-    void createTripList();
+
+    // For planning trips
+    QVector<Trip*> createTripList();
     void displayTripList();
+    bool planTrip(QVector<Trip*> tripVector);
+    void parisTrip();
 
     QVector<Trip*> tripList;
 

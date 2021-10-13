@@ -206,7 +206,7 @@ void Controller::uploadFoodsFile() {
 
 }
 
-void Controller::createTripList()
+QVector<Trip*> Controller::createTripList()
 {
     QSqlTableModel model;
     model.setTable("Distances");
@@ -222,8 +222,7 @@ void Controller::createTripList()
         this->tripList.append(entry);
     }
 
-    qDebug() << "CALLING ON PROGRAM START!!!!!!!!!!";
-    displayTripList();
+    return tripList;
 }
 
 void Controller::displayTripList()
@@ -238,13 +237,14 @@ void Controller::displayTripList()
     }
 }
 
-void Controller::parisTrip()
+bool Controller::planTrip(QVector<Trip*> tripVector)
 {
-
+    return true;
 }
 
-
-
-
-
-
+void Controller::parisTrip()
+{
+    QVector<Trip*> tripVector;
+    tripVector = createTripList();
+    planTrip(tripVector);
+}
