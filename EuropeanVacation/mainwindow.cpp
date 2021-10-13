@@ -14,12 +14,12 @@ MainWindow::MainWindow(Controller *controller, QWidget *parent)
     ui->stackedWidget->setCurrentWidget(ui->login_page);
     fillCitiesComboBoxes();
 
-//    /*QPixMap and QPalette used to set the background.*/
-//    QPixmap background(":/images/background.jpg");
-//    background = background.scaled(this->size(), Qt::IgnoreAspectRatio);
-//    QPalette palette;
-//    palette.setBrush(QPalette::Window, background);
-//    this->setPalette(palette);
+    /*QPixMap and QPalette used to set the background.*/
+    QPixmap background(":/images/backgroundwhite.png");
+    background = background.scaled(this->size(), Qt::IgnoreAspectRatio);
+    QPalette palette;
+    palette.setBrush(QPalette::Window, background);
+    this->setPalette(palette);
 
 }
 
