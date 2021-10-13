@@ -1,25 +1,38 @@
 #include "trip.h"
 
-QString Trip::getStartCity()
+Trip::Trip(QObject *parent) : QObject(parent)
+{
+
+}
+
+//Trip::Trip()
+//{
+//    this->startCity = "";
+//    this->endCity = "";
+//    this->distance = 0;
+//}
+
+QString Trip::getStartCity() const
 {
     return startCity;
 }
-QString Trip::getEndCity()
+
+QString Trip::getEndCity() const
 {
     return endCity;
 }
 
-int Trip::getDistance()
+int Trip::getDistance() const
 {
     return distance;
 }
 
-void Trip::setStartCity(QString temp)
+void Trip::setStartCity(const QString &temp)
 {
     startCity = temp;
 }
 
-void Trip::setEndCity(QString temp)
+void Trip::setEndCity(const QString &temp)
 {
     endCity = temp;
 }

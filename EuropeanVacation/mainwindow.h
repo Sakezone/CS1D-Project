@@ -2,7 +2,6 @@
 #define MAINWINDOW_H
 
 #include "controller.h"
-#include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -72,6 +71,8 @@ private slots:
     void on_planTrip_pushButton_clicked();
 
     void on_parisTrip_pushButton_clicked();
+
+    void on_planTripPageBack_pushButton_clicked();
 
 private:
     Ui::MainWindow *ui;
