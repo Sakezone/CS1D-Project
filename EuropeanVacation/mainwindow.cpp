@@ -3,11 +3,12 @@
 #include <QPixmap>
 #include <QPalette>
 
-static QList<Trip*> tripList;
+static QVector<Trip*> tripList;
 
 MainWindow::MainWindow(Controller *controller, QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+    , ui(new Ui::MainWindow),
+      m_controller(controller)
 {
     ui->setupUi(this);
     ui->stackedWidget->setCurrentWidget(ui->login_page);
@@ -311,6 +312,13 @@ void MainWindow::on_planTrip_pushButton_clicked()
 
 void MainWindow::on_parisTrip_pushButton_clicked()
 {
+    qDebug() << "CALLING FROM MAINWINDOW!!!!!!!!!!!!!!!!";
     m_controller->displayTripList();
+}
+
+
+void MainWindow::on_planTripPageBack_pushButton_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->user_page);
 }
 

@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="login_page">
      <widget class="QWidget" name="verticalLayoutWidget">
@@ -275,6 +275,19 @@ p, li { white-space: pre-wrap; }
       </property>
       <property name="text">
        <string>Paris Trip</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="planTripPageBack_pushButton">
+      <property name="geometry">
+       <rect>
+        <x>690</x>
+        <y>20</y>
+        <width>93</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Back</string>
       </property>
      </widget>
     </widget>
