@@ -1,16 +1,6 @@
 #include "trip.h"
 
-Trip::Trip(QObject *parent) : QObject(parent)
-{
-
-}
-
-//Trip::Trip()
-//{
-//    this->startCity = "";
-//    this->endCity = "";
-//    this->distance = 0;
-//}
+Trip::Trip(QObject *parent) : QObject(parent) {}
 
 QString Trip::getStartCity() const
 {
