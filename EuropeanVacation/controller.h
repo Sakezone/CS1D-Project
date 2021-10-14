@@ -39,7 +39,7 @@ public:
     // For planning trips
     QVector<Trip*> createTripList();
     void displayTripList();
-    bool planTrip(QVector<Trip*> tripVector);
+    QVector<Trip*> planTrip(QVector<Trip*> tripVector, QVector<Trip*> plannedTrip, QString search, int distance, int amountOfCities);
     void parisTrip();
 
     QVector<Trip*> tripList;

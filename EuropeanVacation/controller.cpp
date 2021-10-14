@@ -13,8 +13,6 @@ Controller::Controller(QObject *parent) : QObject(parent) {
 
         qDebug() << "DATABASE OPENED.";
     }
-
-    createTripList();
 }
 
 Controller::~Controller() {
@@ -208,6 +206,11 @@ void Controller::uploadFoodsFile() {
 
 QVector<Trip*> Controller::createTripList()
 {
+    for(int i = 0; i < tripList.size(); i++)
+        delete tripList[i];
+
+    tripList.clear();
+
     QSqlTableModel model;
     model.setTable("Distances");
     model.select();
@@ -227,7 +230,6 @@ QVector<Trip*> Controller::createTripList()
 
 void Controller::displayTripList()
 {
-
     for (int i = 0; i < tripList.size(); i++) {
 
         qDebug() << "DATABASE ROW :" << i;
@@ -237,14 +239,46 @@ void Controller::displayTripList()
     }
 }
 
-bool Controller::planTrip(QVector<Trip*> tripVector)
+QVector<Trip*> Controller::planTrip(QVector<Trip*> tripVector, QVector<Trip*> plannedTrip, QString search, int distance, int amountOfCities)
 {
-    return true;
+    if(plannedTrip.size() == amountOfCities)
+        return plannedTrip;
+
+    for(int i = 0; i < tripVector.size(); i++)
+    {
+        if(tripVector[i]->getStartCity() == search)
+            if(distance > tripVector[i]->getDistance())
+                distance = tripVector[i]->getDistance();
+    }
+
+    for(int i = 0; i < tripVector.size(); i++)
+    {
+        if(tripVector[i]->getStartCity() == search)
+            if(tripVector[i]->getDistance() == distance)
+            {
+                Trip* trip = new Trip();
+                trip->setStartCity(tripVector[i]->getStartCity());
+                trip->setEndCity(tripVector[i]->getEndCity());
+                trip->setDistance(tripVector[i]->getDistance());
+                plannedTrip.append(trip);
+                search = tripVector[i]->getEndCity();
+                distance = 999999;
+
+                planTrip(tripVector, plannedTrip, search, distance, amountOfCities);
+            }
+    }
 }
 
 void Controller::parisTrip()
 {
     QVector<Trip*> tripVector;
+    QVector<Trip*> plannedTrip;
+    QString search = "Paris";
+    int distance = 999999;
+    int amountOfCities = 11;
     tripVector = createTripList();
-    planTrip(tripVector);
+    plannedTrip = planTrip(tripVector, plannedTrip, search, distance, amountOfCities);
+
+    for(int i = 0; i < plannedTrip.size(); i++)
+        qDebug() << plannedTrip[i]->getStartCity();
 }
