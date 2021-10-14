@@ -118,8 +118,6 @@ void Controller::addFoodQuery(QString city, QString food, double cost) {
         qDebug() << "ADDED " << city << ", " << food << ", " << costAsString;
 
     qry.clear();
-
-
 }
 
 void Controller::uploadCitiesFile() {
@@ -200,8 +198,6 @@ void Controller::uploadFoodsFile() {
             }
         }
     }
-
-
 }
 
 QVector<Trip*> Controller::createTripList()
@@ -256,11 +252,14 @@ QVector<Trip*> Controller::planTrip(QVector<Trip*> tripVector, QVector<Trip*> pl
         if(tripVector[i]->getStartCity() == search)
             if(tripVector[i]->getDistance() == distance)
             {
+                // THIS PART IS BROKEN
+
                 Trip* trip = new Trip();
                 trip->setStartCity(tripVector[i]->getStartCity());
                 trip->setEndCity(tripVector[i]->getEndCity());
                 trip->setDistance(tripVector[i]->getDistance());
                 plannedTrip.append(trip);
+
                 search = tripVector[i]->getEndCity();
                 distance = 999999;
 
