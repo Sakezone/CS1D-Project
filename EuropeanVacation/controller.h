@@ -37,12 +37,17 @@ public:
     void uploadFoodsFile();
 
     // For planning trips
-    QVector<Trip*> createTripList();
+    void createTripList();
+    void resetTripList();
     void displayTripList();
     QVector<Trip*> planTrip(QVector<Trip*> tripVector, QVector<Trip*> plannedTrip, QString search, int distance, int amountOfCities);
     void parisTrip();
+    void createAutomaticTrip(QString startCity, int numberOfCities);
+    void resetAutomaticTrip();
+    void displayAutomaticTrip();
 
     QVector<Trip*> tripList;
+    QVector<Trip*> completedTripList;
 
 private:
     QSqlDatabase m_database;

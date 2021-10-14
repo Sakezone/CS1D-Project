@@ -74,6 +74,14 @@ private slots:
 
     void on_planTripPageBack_pushButton_clicked();
 
+    void on_pickTripBack_pushButton_clicked();
+
+    void on_autoPlanner_pushButton_clicked();
+
+    void on_autoTripDone_pushButton_clicked();
+
+    void on_autoTripReset_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     Controller *m_controller;

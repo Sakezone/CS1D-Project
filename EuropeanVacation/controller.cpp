@@ -13,6 +13,9 @@ Controller::Controller(QObject *parent) : QObject(parent) {
 
         qDebug() << "DATABASE OPENED.";
     }
+
+    createTripList();
+    displayTripList();
 }
 
 Controller::~Controller() {
@@ -200,10 +203,12 @@ void Controller::uploadFoodsFile() {
     }
 }
 
-QVector<Trip*> Controller::createTripList()
+void Controller::createTripList()
 {
-    for(int i = 0; i < tripList.size(); i++)
+    for(int i = 0; i < tripList.size(); i++) {
+
         delete tripList[i];
+    }
 
     tripList.clear();
 
@@ -219,19 +224,23 @@ QVector<Trip*> Controller::createTripList()
         entry->setDistance(model.record(i).value("Distance").toInt());
 
         this->tripList.append(entry);
-    }
+    }  
+}
 
-    return tripList;
+void Controller::resetTripList()
+{
+    createTripList();
 }
 
 void Controller::displayTripList()
 {
     for (int i = 0; i < tripList.size(); i++) {
 
-        qDebug() << "DATABASE ROW :" << i;
-        qDebug() << tripList[i]->getStartCity();
-        qDebug() << tripList[i]->getEndCity();
-        qDebug() << tripList[i]->getDistance();
+//        qDebug() << "----------";
+//        qDebug() << tripList[i]->getStartCity();
+//        qDebug() << tripList[i]->getEndCity();
+//        qDebug() << tripList[i]->getDistance();
+        qDebug() << tripList[i]->getStartCity() << ", " << tripList[i]->getEndCity() << ", " << tripList[i]->getDistance();
     }
 }
 
@@ -270,14 +279,96 @@ QVector<Trip*> Controller::planTrip(QVector<Trip*> tripVector, QVector<Trip*> pl
 
 void Controller::parisTrip()
 {
-    QVector<Trip*> tripVector;
-    QVector<Trip*> plannedTrip;
-    QString search = "Paris";
-    int distance = 999999;
-    int amountOfCities = 11;
-    tripVector = createTripList();
-    plannedTrip = planTrip(tripVector, plannedTrip, search, distance, amountOfCities);
+//    QVector<Trip*> tripVector;
+//    QVector<Trip*> plannedTrip;
+//    QString search = "Paris";
+//    int distance = 999999;
+//    int amountOfCities = 11;
+//    tripVector = createTripList();
+//    plannedTrip = planTrip(tripVector, plannedTrip, search, distance, amountOfCities);
 
-    for(int i = 0; i < plannedTrip.size(); i++)
-        qDebug() << plannedTrip[i]->getStartCity();
+//    for(int i = 0; i < plannedTrip.size(); i++)
+//        qDebug() << plannedTrip[i]->getStartCity();
+}
+
+void Controller::createAutomaticTrip(QString startCity, int numberOfCities)
+{
+    QString tempEndCity = "DEFAULT";
+    int tempDistance = 99999;
+    int distance = 99999;   // RE-INITIALIZES DISTANCE FOR DISTANCE SEARCH
+
+    if (completedTripList.size() == numberOfCities)    // ENDS WHEN THE NUMBER OF CITIES IS REACHED.
+        return;
+
+    else {
+
+        for (int i = 0; i < tripList.size(); i++) { // TRAVERSES tripList AND SEARCHES FOR THE CITY WITH THE LOWEST DISTANCE RELATIVE TO startCity
+
+            if (tripList[i]->getStartCity() == startCity) { // FINDS THE CITY WITH THE LOWEST DISTANCE AND SAVES endCity AND distance
+
+                if (tripList[i]->getDistance() < distance) {
+
+                        tempEndCity = tripList[i]->getEndCity();
+                        tempDistance = tripList[i]->getDistance();
+                        distance = tripList[i]->getDistance();
+                }
+
+                qDebug() << "REMOVING: " << tripList[i]->getStartCity() << ", " << tripList[i]->getEndCity() << ", " << tripList[i]->getDistance();
+
+                tripList[i]->setStartCity("NULL");
+                tripList[i]->setEndCity("NULL");
+                tripList[i]->setDistance(100000);
+//                tripList.removeAt(i);
+                continue;
+            }
+        }
+
+        for (int i = 0; i < tripList.size(); i++) { // TRAVERSES tripList AND SEARCHES FOR THE CITY WITH THE LOWEST DISTANCE RELATIVE TO startCity
+
+            if (tripList[i]->getEndCity() == startCity) {
+
+                qDebug() << "REMOVING: " << tripList[i]->getStartCity() << ", " << tripList[i]->getEndCity() << ", " << tripList[i]->getDistance();
+
+                tripList[i]->setStartCity("NULL");
+                tripList[i]->setEndCity("NULL");
+                tripList[i]->setDistance(100000);
+//                tripList.removeAt(i);
+                continue;
+            }
+        }
+
+//        displayTripList();
+        qDebug() << "***********FINISHED THE FOR LOOP THROUGH tripList*******************";
+//        displayTripList();
+
+        Trip *entry = new Trip();
+        entry->setStartCity(startCity);
+        entry->setEndCity(tempEndCity);
+        entry->setDistance(tempDistance);
+
+        this->completedTripList.append(entry);
+
+//        qDebug() << startCity << "---->" << tempDistance << "---->" << tempEndCity;
+
+        createAutomaticTrip(tempEndCity, numberOfCities);
+    }
+}
+
+void Controller::resetAutomaticTrip()
+{
+    for(int i = 0; i < completedTripList.size(); i++) {
+
+        delete completedTripList[i];
+    }
+
+    completedTripList.clear();
+}
+
+void Controller::displayAutomaticTrip()
+{
+    qDebug() << "++++++++++FINAL TRIP+++++++++++++++++";
+    for (int i = 0; i < completedTripList.size(); i++) {
+
+        qDebug() << completedTripList[i]->getStartCity() << "--->" << completedTripList[i]->getDistance() << "--->" << completedTripList[i]->getEndCity();
+    }
 }

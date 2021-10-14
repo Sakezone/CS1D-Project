@@ -20,7 +20,6 @@ MainWindow::MainWindow(Controller *controller, QWidget *parent)
     QPalette palette;
     palette.setBrush(QPalette::Window, background);
     this->setPalette(palette);
-
 }
 
 MainWindow::~MainWindow()
@@ -33,6 +32,7 @@ void MainWindow::fillCitiesComboBoxes()
     ui->userSelectCities_comboBox->setModel(m_controller->getDistancesQueryModel("select DISTINCT StartCity from Distances ORDER BY StartCity ASC;"));
     ui->adminChooseCities_comboBox->setModel(m_controller->getDistancesQueryModel("select DISTINCT StartCity from Distances ORDER BY StartCity ASC;"));
     ui->adminUploadChooseCities_comboBox->setModel(m_controller->getDistancesQueryModel("select DISTINCT StartCity from Distances ORDER BY StartCity ASC;"));
+    ui->autoTripCity_comboBox->setModel(m_controller->getDistancesQueryModel("select DISTINCT StartCity from Distances ORDER BY StartCity ASC;"));
 }
 
 void MainWindow::on_clear_pushButton_clicked()
@@ -303,21 +303,78 @@ void MainWindow::on_adminUploadFoods_pushButton_clicked()
 {
     m_controller->uploadFoodsFile();
     fillCitiesComboBoxes();
+    ui->selectNumberOfCities_spinBox->setMaximum(12);
 }
 
 void MainWindow::on_planTrip_pushButton_clicked()
 {
-    ui->stackedWidget->setCurrentWidget(ui->planTrip_Page);
+    ui->stackedWidget->setCurrentWidget(ui->pickTrip_Page);
 }
 
 void MainWindow::on_parisTrip_pushButton_clicked()
 {
-    m_controller->parisTrip();
-}
+    //    m_controller->createAutomaticTrip("Rome", 10);
 
+    m_controller->createAutomaticTrip(ui->autoTripCity_comboBox->currentText(), ui->selectNumberOfCities_spinBox->value());
+    m_controller->displayAutomaticTrip();
+//    ui->stackedWidget->setCurrentWidget(ui->autoTrip_page);
+
+    ui->autoTrip_tableWidget->setRowCount(m_controller->completedTripList.size());
+    ui->autoTrip_tableWidget->setColumnCount(3);
+
+    for (int i = 0; i < m_controller->completedTripList.size(); i++) {
+
+//        QString startCity = m_controller->completedTripList[i]->getStartCity();
+
+        QTableWidgetItem *startCity = new QTableWidgetItem();
+        QTableWidgetItem *endCity = new QTableWidgetItem();
+        QTableWidgetItem *distance = new QTableWidgetItem();
+
+        startCity->setText(m_controller->completedTripList[i]->getStartCity());
+        endCity->setText(m_controller->completedTripList[i]->getEndCity());
+        distance->setText(QString::number(m_controller->completedTripList[i]->getDistance()));
+
+        ui->autoTrip_tableWidget->setItem(i, 0, startCity);
+        ui->autoTrip_tableWidget->setItem(i, 1, endCity);
+        ui->autoTrip_tableWidget->setItem(i, 2, distance);
+    }
+
+    ui->autoTrip_tableWidget->resizeColumnsToContents();
+}
 
 void MainWindow::on_planTripPageBack_pushButton_clicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->user_page);
+}
+
+
+void MainWindow::on_pickTripBack_pushButton_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->user_page);
+}
+
+
+void MainWindow::on_autoPlanner_pushButton_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->planAutoTrip_Page);
+}
+
+void MainWindow::on_autoTripDone_pushButton_clicked()
+{
+    m_controller->resetTripList();
+    m_controller->resetAutomaticTrip();
+    ui->autoTrip_tableWidget->reset();
+    ui->stackedWidget->setCurrentWidget(ui->user_page);
+}
+
+
+void MainWindow::on_autoTripReset_pushButton_clicked()
+{
+    m_controller->resetTripList();
+    m_controller->resetAutomaticTrip();
+    ui->autoTrip_tableWidget->clearContents();
+    ui->autoTrip_tableWidget->clear();
+    ui->autoTrip_tableWidget->setRowCount(0);
+    ui->autoTrip_tableWidget->setColumnCount(0);
 }
 
