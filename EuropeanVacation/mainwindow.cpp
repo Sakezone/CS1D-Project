@@ -313,18 +313,15 @@ void MainWindow::on_planTrip_pushButton_clicked()
 
 void MainWindow::on_parisTrip_pushButton_clicked()
 {
-    //    m_controller->createAutomaticTrip("Rome", 10);
+    int totalDistance = 0;
 
     m_controller->createAutomaticTrip(ui->autoTripCity_comboBox->currentText(), ui->selectNumberOfCities_spinBox->value());
     m_controller->displayAutomaticTrip();
-//    ui->stackedWidget->setCurrentWidget(ui->autoTrip_page);
 
     ui->autoTrip_tableWidget->setRowCount(m_controller->completedTripList.size());
     ui->autoTrip_tableWidget->setColumnCount(3);
 
     for (int i = 0; i < m_controller->completedTripList.size(); i++) {
-
-//        QString startCity = m_controller->completedTripList[i]->getStartCity();
 
         QTableWidgetItem *startCity = new QTableWidgetItem();
         QTableWidgetItem *endCity = new QTableWidgetItem();
@@ -337,13 +334,43 @@ void MainWindow::on_parisTrip_pushButton_clicked()
         ui->autoTrip_tableWidget->setItem(i, 0, startCity);
         ui->autoTrip_tableWidget->setItem(i, 1, endCity);
         ui->autoTrip_tableWidget->setItem(i, 2, distance);
+
+        totalDistance = totalDistance + m_controller->completedTripList[i]->getDistance();
     }
 
     ui->autoTrip_tableWidget->resizeColumnsToContents();
+
+    // -FOOD SECTION-
+
+    m_controller->createFoodList();
+
+    ui->purchaseFoods_tableWidget->setRowCount(m_controller->foodList.size());
+    ui->purchaseFoods_tableWidget->setColumnCount(4);
+
+    for (int i = 0; i < m_controller->foodList.size(); i++) {
+
+        QTableWidgetItem *city = new QTableWidgetItem();
+        QTableWidgetItem *food = new QTableWidgetItem();
+        QTableWidgetItem *cost = new QTableWidgetItem();
+
+        city->setText(m_controller->foodList[i]->getCity());
+        food->setText(m_controller->foodList[i]->getName());
+        cost->setText(QString::number(m_controller->foodList[i]->getCost()));
+
+        ui->purchaseFoods_tableWidget->setItem(i, 0, city);
+        ui->purchaseFoods_tableWidget->setItem(i, 1, food);
+        ui->purchaseFoods_tableWidget->setItem(i, 2, cost);
+        ui->purchaseFoods_tableWidget->setCellWidget(i, 3, new QSpinBox);
+    }
+
+    ui->purchaseFoods_tableWidget->resizeColumnsToContents();
+
+
 }
 
 void MainWindow::on_planTripPageBack_pushButton_clicked()
 {
+    on_autoTripReset_pushButton_clicked();
     ui->stackedWidget->setCurrentWidget(ui->user_page);
 }
 
@@ -376,5 +403,43 @@ void MainWindow::on_autoTripReset_pushButton_clicked()
     ui->autoTrip_tableWidget->clear();
     ui->autoTrip_tableWidget->setRowCount(0);
     ui->autoTrip_tableWidget->setColumnCount(0);
+
+    ui->purchaseFoods_tableWidget->clearContents();
+    ui->purchaseFoods_tableWidget->clear();
+    ui->purchaseFoods_tableWidget->setRowCount(0);
+    ui->purchaseFoods_tableWidget->setColumnCount(0);
+
+    ui->foodReceipt_tableView->clear();
+    ui->totalCost_label->clear();
+}
+
+
+void MainWindow::on_purchaseFoods_pushButton_clicked()
+{
+    ui->foodReceipt_tableView->clear();
+
+    double totalCost = 0;
+
+    for (int i = 0; i < ui->purchaseFoods_tableWidget->rowCount(); i++) {
+
+        int val = static_cast<QSpinBox*>(ui->purchaseFoods_tableWidget->cellWidget(i, 3))->value();
+        QTableWidgetItem *cost = ui->purchaseFoods_tableWidget->item(i,2);
+        totalCost = totalCost + (cost->text().toDouble() * val);
+
+        int quantity = static_cast<QSpinBox*>(ui->purchaseFoods_tableWidget->cellWidget(i, 3))->value();
+
+        if (quantity > 0) {
+
+            QString name = ui->purchaseFoods_tableWidget->item(i,1)->text();
+            double costs = cost->text().toDouble() * quantity;
+
+            ui->foodReceipt_tableView->append(name);
+            ui->foodReceipt_tableView->append(cost->text() + " x" + QString::number(quantity));
+            ui->foodReceipt_tableView->append(QString::number(costs));
+            ui->foodReceipt_tableView->append("----------------");
+        }
+    }
+
+    ui->totalCost_label->setText("$" + QString::number(totalCost));
 }
 

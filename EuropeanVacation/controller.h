@@ -15,6 +15,7 @@
 #include<QSpinBox>
 #include<QSize>
 #include<QTableWidgetItem>
+#include <QSpinBox>
 #include "trip.h"
 using namespace std;
 
@@ -40,14 +41,16 @@ public:
     void createTripList();
     void resetTripList();
     void displayTripList();
-    QVector<Trip*> planTrip(QVector<Trip*> tripVector, QVector<Trip*> plannedTrip, QString search, int distance, int amountOfCities);
-    void parisTrip();
+//    QVector<Trip*> planTrip(QVector<Trip*> tripVector, QVector<Trip*> plannedTrip, QString search, int distance, int amountOfCities);
+//    void parisTrip();
     void createAutomaticTrip(QString startCity, int numberOfCities);
     void resetAutomaticTrip();
     void displayAutomaticTrip();
+    void createFoodList();
 
     QVector<Trip*> tripList;
     QVector<Trip*> completedTripList;
+    QVector<food*> foodList;
 
 private:
     QSqlDatabase m_database;

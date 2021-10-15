@@ -82,6 +82,8 @@ private slots:
 
     void on_autoTripReset_pushButton_clicked();
 
+    void on_purchaseFoods_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     Controller *m_controller;

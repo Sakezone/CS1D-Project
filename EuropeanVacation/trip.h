@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QString>
+#include "food.h"
 
 class Trip : public QObject
 {
