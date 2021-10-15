@@ -13,9 +13,6 @@ Controller::Controller(QObject *parent) : QObject(parent) {
 
         qDebug() << "DATABASE OPENED.";
     }
-
-    createTripList();
-    displayTripList();
 }
 
 Controller::~Controller() {
@@ -205,13 +202,6 @@ void Controller::uploadFoodsFile() {
 
 void Controller::createTripList()
 {
-    for(int i = 0; i < tripList.size(); i++) {
-
-        delete tripList[i];
-    }
-
-    tripList.clear();
-
     QSqlTableModel model;
     model.setTable("Distances");
     model.select();
@@ -227,9 +217,44 @@ void Controller::createTripList()
     }  
 }
 
+void Controller::createCustomTripList()
+{
+    QSqlTableModel model;
+    model.setTable("Distances");
+    model.select();
+
+    for (int i = 0; i < customTripListCities.size(); i++) {
+
+        for (int j = 0; j < model.rowCount(); j++) {
+
+            if (model.record(j).value("StartCity").toString() == customTripListCities[i]) {
+
+                for (int k = 0; k < customTripListCities.size(); k++) {
+
+                    if (model.record(j).value("EndCity").toString() == customTripListCities[k]) {
+
+                        Trip* entry = new Trip();
+
+                        entry->setStartCity(model.record(j).value("StartCity").toString());
+                        entry->setEndCity(model.record(j).value("EndCity").toString());
+                        entry->setDistance(model.record(j).value("Distance").toInt());
+
+                        this->tripList.append(entry);
+                    }
+                }
+            }
+        }
+    }
+}
+
 void Controller::resetTripList()
 {
-    createTripList();
+    for(int i = 0; i < tripList.size(); i++) {
+
+        delete tripList[i];
+    }
+
+    tripList.clear();
 }
 
 void Controller::displayTripList()
@@ -291,7 +316,7 @@ void Controller::displayTripList()
 //        qDebug() << plannedTrip[i]->getStartCity();
 //}
 
-void Controller::createAutomaticTrip(QString startCity, int numberOfCities)
+void Controller::createTrip(QString startCity, int numberOfCities)
 {
     QString tempEndCity = "DEFAULT";
     int tempDistance = 99999;
@@ -313,7 +338,7 @@ void Controller::createAutomaticTrip(QString startCity, int numberOfCities)
                         distance = tripList[i]->getDistance();
                 }
 
-                qDebug() << "REMOVING: " << tripList[i]->getStartCity() << ", " << tripList[i]->getEndCity() << ", " << tripList[i]->getDistance();
+//                qDebug() << "REMOVING: " << tripList[i]->getStartCity() << ", " << tripList[i]->getEndCity() << ", " << tripList[i]->getDistance();
 
                 tripList[i]->setStartCity("NULL");
                 tripList[i]->setEndCity("NULL");
@@ -326,7 +351,7 @@ void Controller::createAutomaticTrip(QString startCity, int numberOfCities)
 
             if (tripList[i]->getEndCity() == startCity) {
 
-                qDebug() << "REMOVING: " << tripList[i]->getStartCity() << ", " << tripList[i]->getEndCity() << ", " << tripList[i]->getDistance();
+//                qDebug() << "REMOVING: " << tripList[i]->getStartCity() << ", " << tripList[i]->getEndCity() << ", " << tripList[i]->getDistance();
 
                 tripList[i]->setStartCity("NULL");
                 tripList[i]->setEndCity("NULL");
@@ -342,11 +367,11 @@ void Controller::createAutomaticTrip(QString startCity, int numberOfCities)
 
         this->completedTripList.append(entry);
 
-        createAutomaticTrip(tempEndCity, numberOfCities);
+        createTrip(tempEndCity, numberOfCities);
     }
 }
 
-void Controller::resetAutomaticTrip()
+void Controller::resetTrip()
 {
     for(int i = 0; i < completedTripList.size(); i++) {
 
@@ -363,7 +388,7 @@ void Controller::resetAutomaticTrip()
     foodList.clear();
 }
 
-void Controller::displayAutomaticTrip()
+void Controller::displayTrip()
 {
     qDebug() << "++++++++++FINAL TRIP+++++++++++++++++";
     for (int i = 0; i < completedTripList.size(); i++) {
@@ -378,18 +403,42 @@ void Controller::createFoodList()
     model.setTable("Foods");
     model.select();
 
+    for (int i = 0; i < completedTripList.size(); i++) {
+
+        for (int j = 0; j < model.rowCount(); j++) {
+
+            if (model.record(j).value("City").toString() == completedTripList[i]->getStartCity()) {
+
+                food* entry = new food();
+                entry->setCity(model.record(j).value("City").toString());
+                entry->setName(model.record(j).value("Food").toString());
+
+                QString costAsString = model.record(j).value("Cost").toString();
+                costAsString.remove(0,1);
+                double costAsDouble = costAsString.toDouble();
+
+                entry->setCost(costAsDouble);
+
+                this->foodList.append(entry);
+            }
+        }
+    }
+
     for (int i = 0; i < model.rowCount(); i++) {
 
-        food* entry = new food();
-        entry->setCity(model.record(i).value("City").toString());
-        entry->setName(model.record(i).value("Food").toString());
+        if (model.record(i).value("City").toString() == completedTripList.back()->getEndCity()) {
 
-        QString costAsString = model.record(i).value("Cost").toString();
-        costAsString.remove(0,1);
-        double costAsDouble = costAsString.toDouble();
+            food* entry = new food();
+            entry->setCity(model.record(i).value("City").toString());
+            entry->setName(model.record(i).value("Food").toString());
 
-        entry->setCost(costAsDouble);
+            QString costAsString = model.record(i).value("Cost").toString();
+            costAsString.remove(0,1);
+            double costAsDouble = costAsString.toDouble();
 
-        this->foodList.append(entry);
+            entry->setCost(costAsDouble);
+
+            this->foodList.append(entry);
+        }
     }
 }

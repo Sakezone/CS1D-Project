@@ -39,18 +39,20 @@ public:
 
     // For planning trips
     void createTripList();
+    void createCustomTripList();
     void resetTripList();
     void displayTripList();
 //    QVector<Trip*> planTrip(QVector<Trip*> tripVector, QVector<Trip*> plannedTrip, QString search, int distance, int amountOfCities);
 //    void parisTrip();
-    void createAutomaticTrip(QString startCity, int numberOfCities);
-    void resetAutomaticTrip();
-    void displayAutomaticTrip();
+    void createTrip(QString startCity, int numberOfCities);
+    void resetTrip();
+    void displayTrip();
     void createFoodList();
 
     QVector<Trip*> tripList;
     QVector<Trip*> completedTripList;
     QVector<food*> foodList;
+    QVector<QString> customTripListCities;
 
 private:
     QSqlDatabase m_database;

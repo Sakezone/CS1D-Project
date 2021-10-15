@@ -3,8 +3,6 @@
 #include <QPixmap>
 #include <QPalette>
 
-static QVector<Trip*> tripList;
-
 MainWindow::MainWindow(Controller *controller, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow),
@@ -296,6 +294,7 @@ void MainWindow::on_adminUploadCities_pushButton_clicked()
 {
     m_controller->uploadCitiesFile();
     fillCitiesComboBoxes();
+    ui->selectNumberOfCities_spinBox->setMaximum(12);
 }
 
 
@@ -314,9 +313,10 @@ void MainWindow::on_planTrip_pushButton_clicked()
 void MainWindow::on_parisTrip_pushButton_clicked()
 {
     int totalDistance = 0;
-
-    m_controller->createAutomaticTrip(ui->autoTripCity_comboBox->currentText(), ui->selectNumberOfCities_spinBox->value());
-    m_controller->displayAutomaticTrip();
+    m_controller->createTripList();
+    m_controller->displayTripList();
+    m_controller->createTrip(ui->autoTripCity_comboBox->currentText(), ui->selectNumberOfCities_spinBox->value());
+    m_controller->displayTrip();
 
     ui->autoTrip_tableWidget->setRowCount(m_controller->completedTripList.size());
     ui->autoTrip_tableWidget->setColumnCount(3);
@@ -380,25 +380,15 @@ void MainWindow::on_pickTripBack_pushButton_clicked()
     ui->stackedWidget->setCurrentWidget(ui->user_page);
 }
 
-
 void MainWindow::on_autoPlanner_pushButton_clicked()
 {
     ui->stackedWidget->setCurrentWidget(ui->planAutoTrip_Page);
 }
 
-void MainWindow::on_autoTripDone_pushButton_clicked()
-{
-    m_controller->resetTripList();
-    m_controller->resetAutomaticTrip();
-    ui->autoTrip_tableWidget->reset();
-    ui->stackedWidget->setCurrentWidget(ui->user_page);
-}
-
-
 void MainWindow::on_autoTripReset_pushButton_clicked()
 {
     m_controller->resetTripList();
-    m_controller->resetAutomaticTrip();
+    m_controller->resetTrip();
     ui->autoTrip_tableWidget->clearContents();
     ui->autoTrip_tableWidget->clear();
     ui->autoTrip_tableWidget->setRowCount(0);
@@ -441,5 +431,58 @@ void MainWindow::on_purchaseFoods_pushButton_clicked()
     }
 
     ui->totalCost_label->setText("$" + QString::number(totalCost));
+}
+
+
+void MainWindow::on_customPlanner_pushButton_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->customTrip_page);
+    ui->customTripSelect_tableView->setModel(m_controller->getDistancesQueryModel("select DISTINCT StartCity from Distances ORDER BY StartCity ASC;"));
+}
+
+
+void MainWindow::on_customTripBack_pushButton_clicked()
+{
+    ui->stackedWidget->setCurrentWidget(ui->user_page);
+}
+
+
+void MainWindow::on_customTripSelect_tableView_doubleClicked(const QModelIndex &index)
+{
+    m_controller->customTripListCities.append(index.data().toString());
+    ui->customTrip_textBrowser->append(index.data().toString());
+    ui->customTripSelect_tableView->hideRow(index.row());
+}
+
+void MainWindow::on_customTripReset_pushButton_clicked()
+{
+    m_controller->resetTripList();
+    m_controller->resetTrip();
+
+    ui->customTripSelect_tableView->reset();
+
+//    ui->customTripSelect_tableView->resizeRowsToContents();
+    ui->customTripSelect_tableView->setModel(m_controller->getDistancesQueryModel("select DISTINCT StartCity from Distances ORDER BY StartCity ASC;"));
+    ui->customTrip_textBrowser->clear();
+}
+
+void MainWindow::on_createCustomTrip_pushButton_clicked()
+{
+//    qDebug() << m_controller->customTripListCities.size();
+//    for (int i = 0; i < m_controller->customTripListCities.size(); i++) {
+
+//        qDebug() << m_controller->customTripListCities[i];
+//    }
+
+    QString startCity = m_controller->customTripListCities[0];
+    int numberOfCities = m_controller->customTripListCities.size() - 1;
+
+//    m_controller->createAutomaticTrip(firstCity, numberOfCities);
+//    m_controller->displayAutomaticTrip();
+
+    m_controller->createCustomTripList();
+    m_controller->displayTripList();
+    m_controller->createTrip(startCity, numberOfCities);
+    m_controller->displayTrip();
 }
 

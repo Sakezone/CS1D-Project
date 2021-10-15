@@ -485,41 +485,87 @@ p, li { white-space: pre-wrap; }
       </property>
      </widget>
     </widget>
-    <widget class="QWidget" name="autoTrip_page">
-     <widget class="QPushButton" name="autoTripDone_pushButton">
+    <widget class="QWidget" name="customTrip_page">
+     <widget class="QTableView" name="customTripSelect_tableView">
       <property name="geometry">
        <rect>
-        <x>720</x>
-        <y>430</y>
+        <x>10</x>
+        <y>40</y>
+        <width>151</width>
+        <height>341</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="prompt_label">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>171</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Select The Cities You Want To Visit</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="createCustomTrip_pushButton">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>400</y>
         <width>75</width>
         <height>23</height>
        </rect>
       </property>
       <property name="text">
-       <string>Done</string>
+       <string>Create Trip!</string>
       </property>
      </widget>
-     <widget class="QTableWidget" name="autoTrip_tableWidget2">
+     <widget class="QPushButton" name="customTripReset_pushButton">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>130</y>
-        <width>251</width>
-        <height>321</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_2">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>100</y>
-        <width>161</width>
-        <height>16</height>
+        <x>700</x>
+        <y>400</y>
+        <width>75</width>
+        <height>23</height>
        </rect>
       </property>
       <property name="text">
-       <string>Your Automated Trip Is:</string>
+       <string>Reset</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="customTripBack_pushButton">
+      <property name="geometry">
+       <rect>
+        <x>720</x>
+        <y>10</y>
+        <width>75</width>
+        <height>23</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Back</string>
+      </property>
+     </widget>
+     <widget class="QTableWidget" name="customTripSelect_tableWidget">
+      <property name="geometry">
+       <rect>
+        <x>500</x>
+        <y>40</y>
+        <width>181</width>
+        <height>351</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QTextBrowser" name="customTrip_textBrowser">
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>40</y>
+        <width>151</width>
+        <height>241</height>
+       </rect>
       </property>
      </widget>
     </widget>
