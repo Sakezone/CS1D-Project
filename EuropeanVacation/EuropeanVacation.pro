@@ -11,11 +11,13 @@ CONFIG += c++11
 SOURCES += \
     controller.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    trip.cpp
 
 HEADERS += \
     controller.h \
-    mainwindow.h
+    mainwindow.h \
+    trip.h
 
 FORMS += \
     mainwindow.ui

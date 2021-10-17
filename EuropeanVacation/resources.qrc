@@ -2,5 +2,7 @@
     <qresource prefix="/images">
         <file>background.jpg</file>
         <file>runtimeerror.png</file>
+        <file>backgroundwhite.png</file>
+        <file>logo.png</file>
     </qresource>
 </RCC>

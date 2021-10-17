@@ -13,6 +13,8 @@ Controller::Controller(QObject *parent) : QObject(parent) {
 
         qDebug() << "DATABASE OPENED.";
     }
+
+    createTripList();
 }
 
 Controller::~Controller() {
@@ -49,7 +51,7 @@ QSqlQueryModel *Controller::getFoodsQueryModel(QString query) {
     return model;
 }
 
-void *Controller::editFoodCostQuery(QString city, QString food, double cost) {
+void Controller::editFoodCostQuery(QString city, QString food, double cost) {
 
     QString costAsString = "$" + QString::number(cost);
     QSqlQuery qry;
@@ -81,10 +83,10 @@ void *Controller::editFoodCostQuery(QString city, QString food, double cost) {
 
     qry.clear();
 
-    return 0;
+
 }
 
-void *Controller::deleteFoodQuery(QString city, QString food, double cost)
+void Controller::deleteFoodQuery(QString city, QString food, double cost)
 {
     QString costAsString = "$" + QString::number(cost);
     QSqlQuery qry;
@@ -98,10 +100,10 @@ void *Controller::deleteFoodQuery(QString city, QString food, double cost)
 
     qry.clear();
 
-    return 0;
+
 }
 
-void *Controller::addFoodQuery(QString city, QString food, double cost) {
+void Controller::addFoodQuery(QString city, QString food, double cost) {
 
     QString costAsString = "$" + QString::number(cost);
     QSqlQuery qry;
@@ -119,10 +121,10 @@ void *Controller::addFoodQuery(QString city, QString food, double cost) {
 
     qry.clear();
 
-    return 0;
+
 }
 
-void *Controller::uploadCitiesFile() {
+void Controller::uploadCitiesFile() {
 
     QString fileName = QFileDialog::getOpenFileName(nullptr, tr("Open File"),
                                                     "/home/CS1D-Project", tr("Text Files (*.txt)"));
@@ -154,14 +156,18 @@ void *Controller::uploadCitiesFile() {
 
                 qDebug() << "CITY DATA APPENDED TO .DB: " << startCity << ", " << endCity << ", " << distance;
                 qry.clear();
+
+                Trip* entry = new Trip();
+                entry->setStartCity(startCity);
+                entry->setEndCity(endCity);
+                entry->setDistance(distance.toInt());
+                this->tripList.append(entry);
             }
         }
     }
-
-    return 0;
 }
 
-void *Controller::uploadFoodsFile() {
+void Controller::uploadFoodsFile() {
 
     QString fileName = QFileDialog::getOpenFileName(nullptr, tr("Open File"),
                                                     "/home/CS1D-Project", tr("Text Files (*.txt)"));
@@ -197,13 +203,48 @@ void *Controller::uploadFoodsFile() {
         }
     }
 
-    return 0;
+
 }
 
+QVector<Trip*> Controller::createTripList()
+{
+    QSqlTableModel model;
+    model.setTable("Distances");
+    model.select();
 
+    for (int i = 0; i < model.rowCount(); i++) {
 
+        Trip* entry = new Trip();
+        entry->setStartCity(model.record(i).value("StartCity").toString());
+        entry->setEndCity(model.record(i).value("EndCity").toString());
+        entry->setDistance(model.record(i).value("Distance").toInt());
 
+        this->tripList.append(entry);
+    }
 
+    return tripList;
+}
 
+void Controller::displayTripList()
+{
 
+    for (int i = 0; i < tripList.size(); i++) {
 
+        qDebug() << "DATABASE ROW :" << i;
+        qDebug() << tripList[i]->getStartCity();
+        qDebug() << tripList[i]->getEndCity();
+        qDebug() << tripList[i]->getDistance();
+    }
+}
+
+bool Controller::planTrip(QVector<Trip*> tripVector)
+{
+    return true;
+}
+
+void Controller::parisTrip()
+{
+    QVector<Trip*> tripVector;
+    tripVector = createTripList();
+    planTrip(tripVector);
+}
