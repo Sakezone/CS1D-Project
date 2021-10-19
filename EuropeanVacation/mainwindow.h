@@ -92,6 +92,8 @@ private slots:
 
     void on_createCustomTrip_pushButton_clicked();
 
+    void on_customPurchaseFoods_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     Controller *m_controller;

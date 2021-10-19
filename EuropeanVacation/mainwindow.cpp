@@ -339,6 +339,7 @@ void MainWindow::on_parisTrip_pushButton_clicked()
     }
 
     ui->autoTrip_tableWidget->resizeColumnsToContents();
+    ui->autoTripTotalDistance_label->setText(QString::number(totalDistance));
 
     // -FOOD SECTION-
 
@@ -364,8 +365,6 @@ void MainWindow::on_parisTrip_pushButton_clicked()
     }
 
     ui->purchaseFoods_tableWidget->resizeColumnsToContents();
-
-
 }
 
 void MainWindow::on_planTripPageBack_pushButton_clicked()
@@ -387,13 +386,16 @@ void MainWindow::on_autoPlanner_pushButton_clicked()
 
 void MainWindow::on_autoTripReset_pushButton_clicked()
 {
+    // -CLEARING TRIP DATA-
     m_controller->resetTripList();
     m_controller->resetTrip();
     ui->autoTrip_tableWidget->clearContents();
     ui->autoTrip_tableWidget->clear();
     ui->autoTrip_tableWidget->setRowCount(0);
     ui->autoTrip_tableWidget->setColumnCount(0);
+    ui->autoTripTotalDistance_label->clear();
 
+    // -CLEARING FOOD DATA-
     ui->purchaseFoods_tableWidget->clearContents();
     ui->purchaseFoods_tableWidget->clear();
     ui->purchaseFoods_tableWidget->setRowCount(0);
@@ -449,40 +451,137 @@ void MainWindow::on_customTripBack_pushButton_clicked()
 
 void MainWindow::on_customTripSelect_tableView_doubleClicked(const QModelIndex &index)
 {
-    m_controller->customTripListCities.append(index.data().toString());
-    ui->customTrip_textBrowser->append(index.data().toString());
-    ui->customTripSelect_tableView->hideRow(index.row());
+    bool found = false;
+
+    for (int i = 0; i < m_controller->customTripListCities.size(); i++) {
+
+        if (m_controller->customTripListCities[i] == index.data()) {
+
+            found = true;
+            QMessageBox::information(this, "Invalid", "Please select a different city!");
+            break;
+        }
+    }
+
+    if (!found) {
+
+        m_controller->customTripListCities.append(index.data().toString());
+        ui->customTrip_textBrowser->append(index.data().toString());
+    }
 }
 
 void MainWindow::on_customTripReset_pushButton_clicked()
 {
+    // -CLEARING TRIP DATA-
     m_controller->resetTripList();
     m_controller->resetTrip();
 
     ui->customTripSelect_tableView->reset();
+    ui->customTripDisplay_tableWidget->clearContents();
+    ui->customTripDisplay_tableWidget->clear();
+    ui->customTripDisplay_tableWidget->setRowCount(0);
+    ui->customTripDisplay_tableWidget->setColumnCount(0);
 
-//    ui->customTripSelect_tableView->resizeRowsToContents();
     ui->customTripSelect_tableView->setModel(m_controller->getDistancesQueryModel("select DISTINCT StartCity from Distances ORDER BY StartCity ASC;"));
     ui->customTrip_textBrowser->clear();
+    ui->customTripTotalDistance_label->clear();
+
+    // -CLEARING FOOD DATA-
+    ui->customPurchaseFoods_tableWidget->clearContents();
+    ui->customPurchaseFoods_tableWidget->clear();
+    ui->customPurchaseFoods_tableWidget->setRowCount(0);
+    ui->customPurchaseFoods_tableWidget->setColumnCount(0);
+
+    ui->customFoodReceipt_tableView->clear();
+    ui->customTotalCost_label->clear();
 }
 
 void MainWindow::on_createCustomTrip_pushButton_clicked()
 {
-//    qDebug() << m_controller->customTripListCities.size();
-//    for (int i = 0; i < m_controller->customTripListCities.size(); i++) {
-
-//        qDebug() << m_controller->customTripListCities[i];
-//    }
-
     QString startCity = m_controller->customTripListCities[0];
     int numberOfCities = m_controller->customTripListCities.size() - 1;
-
-//    m_controller->createAutomaticTrip(firstCity, numberOfCities);
-//    m_controller->displayAutomaticTrip();
+    int totalDistance = 0;
 
     m_controller->createCustomTripList();
     m_controller->displayTripList();
     m_controller->createTrip(startCity, numberOfCities);
     m_controller->displayTrip();
+
+    ui->customTripDisplay_tableWidget->setRowCount(m_controller->completedTripList.size());
+    ui->customTripDisplay_tableWidget->setColumnCount(3);
+
+    for (int i = 0; i < m_controller->completedTripList.size(); i++) {
+
+        QTableWidgetItem *startCity = new QTableWidgetItem();
+        QTableWidgetItem *endCity = new QTableWidgetItem();
+        QTableWidgetItem *distance = new QTableWidgetItem();
+
+        startCity->setText(m_controller->completedTripList[i]->getStartCity());
+        endCity->setText(m_controller->completedTripList[i]->getEndCity());
+        distance->setText(QString::number(m_controller->completedTripList[i]->getDistance()));
+
+        ui->customTripDisplay_tableWidget->setItem(i, 0, startCity);
+        ui->customTripDisplay_tableWidget->setItem(i, 1, endCity);
+        ui->customTripDisplay_tableWidget->setItem(i, 2, distance);
+
+        totalDistance = totalDistance + m_controller->completedTripList[i]->getDistance();
+    }
+
+    ui->customTripTotalDistance_label->setText(QString::number(totalDistance));
+    ui->customTripDisplay_tableWidget->resizeColumnsToContents();
+
+    // -FOOD SECTION-
+
+    m_controller->createFoodList();
+
+    ui->customPurchaseFoods_tableWidget->setRowCount(m_controller->foodList.size());
+    ui->customPurchaseFoods_tableWidget->setColumnCount(4);
+
+    for (int i = 0; i < m_controller->foodList.size(); i++) {
+
+        QTableWidgetItem *city = new QTableWidgetItem();
+        QTableWidgetItem *food = new QTableWidgetItem();
+        QTableWidgetItem *cost = new QTableWidgetItem();
+
+        city->setText(m_controller->foodList[i]->getCity());
+        food->setText(m_controller->foodList[i]->getName());
+        cost->setText(QString::number(m_controller->foodList[i]->getCost()));
+
+        ui->customPurchaseFoods_tableWidget->setItem(i, 0, city);
+        ui->customPurchaseFoods_tableWidget->setItem(i, 1, food);
+        ui->customPurchaseFoods_tableWidget->setItem(i, 2, cost);
+        ui->customPurchaseFoods_tableWidget->setCellWidget(i, 3, new QSpinBox);
+    }
+
+    ui->customPurchaseFoods_tableWidget->resizeColumnsToContents();
+}
+
+void MainWindow::on_customPurchaseFoods_pushButton_clicked()
+{
+    ui->customFoodReceipt_tableView->clear();
+
+    double totalCost = 0;
+
+    for (int i = 0; i < ui->customPurchaseFoods_tableWidget->rowCount(); i++) {
+
+        int val = static_cast<QSpinBox*>(ui->customPurchaseFoods_tableWidget->cellWidget(i, 3))->value();
+        QTableWidgetItem *cost = ui->customPurchaseFoods_tableWidget->item(i,2);
+        totalCost = totalCost + (cost->text().toDouble() * val);
+
+        int quantity = static_cast<QSpinBox*>(ui->customPurchaseFoods_tableWidget->cellWidget(i, 3))->value();
+
+        if (quantity > 0) {
+
+            QString name = ui->customPurchaseFoods_tableWidget->item(i,1)->text();
+            double costs = cost->text().toDouble() * quantity;
+
+            ui->customFoodReceipt_tableView->append(name);
+            ui->customFoodReceipt_tableView->append(cost->text() + " x" + QString::number(quantity));
+            ui->customFoodReceipt_tableView->append(QString::number(costs));
+            ui->customFoodReceipt_tableView->append("----------------");
+        }
+    }
+
+    ui->customTotalCost_label->setText("$" + QString::number(totalCost));
 }
 

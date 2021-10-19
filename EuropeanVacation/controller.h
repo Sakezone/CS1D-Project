@@ -24,11 +24,8 @@ class Controller : public QObject {
     Q_OBJECT
 public:
     explicit Controller(QObject *parent = nullptr);
-
-//    Controller(Controller& controller);
     ~Controller();
-//    void createTable();
-//    void loadCities();
+
     QSqlQueryModel *getDistancesQueryModel(QString query);
     QSqlQueryModel *getFoodsQueryModel(QString query);
     void editFoodCostQuery(QString city, QString food, double cost);
@@ -42,8 +39,6 @@ public:
     void createCustomTripList();
     void resetTripList();
     void displayTripList();
-//    QVector<Trip*> planTrip(QVector<Trip*> tripVector, QVector<Trip*> plannedTrip, QString search, int distance, int amountOfCities);
-//    void parisTrip();
     void createTrip(QString startCity, int numberOfCities);
     void resetTrip();
     void displayTrip();

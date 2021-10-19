@@ -249,72 +249,23 @@ void Controller::createCustomTripList()
 
 void Controller::resetTripList()
 {
-    for(int i = 0; i < tripList.size(); i++) {
+    for (int i = 0; i < tripList.size(); i++) {
 
         delete tripList[i];
     }
 
     tripList.clear();
+
+    customTripListCities.clear();
 }
 
 void Controller::displayTripList()
 {
     for (int i = 0; i < tripList.size(); i++) {
 
-//        qDebug() << "----------";
-//        qDebug() << tripList[i]->getStartCity();
-//        qDebug() << tripList[i]->getEndCity();
-//        qDebug() << tripList[i]->getDistance();
         qDebug() << tripList[i]->getStartCity() << ", " << tripList[i]->getEndCity() << ", " << tripList[i]->getDistance();
     }
 }
-
-//QVector<Trip*> Controller::planTrip(QVector<Trip*> tripVector, QVector<Trip*> plannedTrip, QString search, int distance, int amountOfCities)
-//{
-//    if(plannedTrip.size() == amountOfCities)
-//        return plannedTrip;
-
-//    for(int i = 0; i < tripVector.size(); i++)
-//    {
-//        if(tripVector[i]->getStartCity() == search)
-//            if(distance > tripVector[i]->getDistance())
-//                distance = tripVector[i]->getDistance();
-//    }
-
-//    for(int i = 0; i < tripVector.size(); i++)
-//    {
-//        if(tripVector[i]->getStartCity() == search)
-//            if(tripVector[i]->getDistance() == distance)
-//            {
-//                // THIS PART IS BROKEN
-
-//                Trip* trip = new Trip();
-//                trip->setStartCity(tripVector[i]->getStartCity());
-//                trip->setEndCity(tripVector[i]->getEndCity());
-//                trip->setDistance(tripVector[i]->getDistance());
-//                plannedTrip.append(trip);
-
-//                search = tripVector[i]->getEndCity();
-//                distance = 999999;
-
-//                planTrip(tripVector, plannedTrip, search, distance, amountOfCities);
-//            }
-//    }
-//}
-
-//void Controller::parisTrip()
-//{
-//    QVector<Trip*> tripVector;
-//    QVector<Trip*> plannedTrip;
-//    QString search = "Paris";
-//    int distance = 999999;
-//    int amountOfCities = 11;
-//    tripVector = createTripList();
-//    plannedTrip = planTrip(tripVector, plannedTrip, search, distance, amountOfCities);
-
-//    for(int i = 0; i < plannedTrip.size(); i++)
-//        qDebug() << plannedTrip[i]->getStartCity();
-//}
 
 void Controller::createTrip(QString startCity, int numberOfCities)
 {
@@ -338,8 +289,6 @@ void Controller::createTrip(QString startCity, int numberOfCities)
                         distance = tripList[i]->getDistance();
                 }
 
-//                qDebug() << "REMOVING: " << tripList[i]->getStartCity() << ", " << tripList[i]->getEndCity() << ", " << tripList[i]->getDistance();
-
                 tripList[i]->setStartCity("NULL");
                 tripList[i]->setEndCity("NULL");
                 tripList[i]->setDistance(100000);
@@ -350,8 +299,6 @@ void Controller::createTrip(QString startCity, int numberOfCities)
         for (int i = 0; i < tripList.size(); i++) { // TRAVERSES tripList AND SEARCHES FOR THE CITY WITH THE LOWEST DISTANCE RELATIVE TO startCity
 
             if (tripList[i]->getEndCity() == startCity) {
-
-//                qDebug() << "REMOVING: " << tripList[i]->getStartCity() << ", " << tripList[i]->getEndCity() << ", " << tripList[i]->getDistance();
 
                 tripList[i]->setStartCity("NULL");
                 tripList[i]->setEndCity("NULL");
@@ -373,7 +320,7 @@ void Controller::createTrip(QString startCity, int numberOfCities)
 
 void Controller::resetTrip()
 {
-    for(int i = 0; i < completedTripList.size(); i++) {
+    for (int i = 0; i < completedTripList.size(); i++) {
 
         delete completedTripList[i];
     }
