@@ -1,29 +1,25 @@
 #include "controller.h"
 
-Controller::Controller(QObject *parent) : QObject(parent) {
-
+Controller::Controller(QObject *parent) : QObject(parent)
+{
     m_database = QSqlDatabase::addDatabase("QSQLITE");
     QString path = "..//CS1D-European-Vacation-Project.db";
     m_database.setDatabaseName(path);
-    if (!m_database.open()) {
 
+    if (!m_database.open())
         qDebug() << "PROBLEM OPENING DATABASE.";
-    }
-    else {
-
+    else
         qDebug() << "DATABASE OPENED.";
-    }
 }
 
-Controller::~Controller() {
-
+Controller::~Controller()
+{
     m_database.close();
 }
 
-QSqlQueryModel *Controller::getDistancesQueryModel(QString query) {
-
+QSqlQueryModel *Controller::getDistancesQueryModel(QString query)
+{
     QSqlQueryModel* model = new QSqlQueryModel();
-
     model->setQuery(query);
 
     if (model->lastError().isValid())
@@ -34,11 +30,9 @@ QSqlQueryModel *Controller::getDistancesQueryModel(QString query) {
     return model;
 }
 
-QSqlQueryModel *Controller::getFoodsQueryModel(QString query) {
-
+QSqlQueryModel *Controller::getFoodsQueryModel(QString query)
+{
     QSqlQueryModel* model = new QSqlQueryModel();
-
-
     model->setQuery(query);
 
     if (model->lastError().isValid())
@@ -49,8 +43,8 @@ QSqlQueryModel *Controller::getFoodsQueryModel(QString query) {
     return model;
 }
 
-void Controller::editFoodCostQuery(QString city, QString food, double cost) {
-
+void Controller::editFoodCostQuery(QString city, QString food, double cost)
+{
     QString costAsString = "$" + QString::number(cost);
     QSqlQuery qry;
 
@@ -67,15 +61,13 @@ void Controller::editFoodCostQuery(QString city, QString food, double cost) {
     qry.addBindValue(food);
     qry.addBindValue(city);
 
-    if (!qry.exec()) {
-
+    if (!qry.exec())
+    {
         qDebug() << "ERROR IN editFoodPriceQueryModel(QString city, QString food, double price)!!!!!!!!!!!";
         qDebug() << food << " from " << city << "not updated to " << costAsString << "!";
-
     }
-    else {
+    else
         qDebug() << food << " from " << city << "updated to " << costAsString << "!";
-    }
 
     qry.clear();
 }
@@ -95,8 +87,8 @@ void Controller::deleteFoodQuery(QString city, QString food, double cost)
     qry.clear();
 }
 
-void Controller::addFoodQuery(QString city, QString food, double cost) {
-
+void Controller::addFoodQuery(QString city, QString food, double cost)
+{
     QString costAsString = "$" + QString::number(cost);
     QSqlQuery qry;
 
@@ -114,20 +106,19 @@ void Controller::addFoodQuery(QString city, QString food, double cost) {
     qry.clear();
 }
 
-void Controller::uploadCitiesFile() {
-
-    QString fileName = QFileDialog::getOpenFileName(nullptr, tr("Open File"),
-                                                    "/home/CS1D-Project", tr("Text Files (*.txt)"));
+void Controller::uploadCitiesFile()
+{
+    QString fileName = QFileDialog::getOpenFileName(nullptr, tr("Open File"), "/home/CS1D-Project", tr("Text Files (*.txt)"));
     QFile file(fileName);
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
         qDebug() << "Error reading file.";
-    else {
-
+    else
+    {
         QTextStream in(&file);
 
-        while (!in.atEnd()) {
-
+        while (!in.atEnd())
+        {
             QSqlQuery qry;
             QString startCity = in.readLine();
             QString endCity = in.readLine();
@@ -142,8 +133,8 @@ void Controller::uploadCitiesFile() {
 
             if (!qry.exec())
                 qDebug() << "ERROR READING .TXT ON " << startCity << ", " << endCity << ", " << distance;
-            else {
-
+            else
+            {
                 qDebug() << "CITY DATA APPENDED TO .DB: " << startCity << ", " << endCity << ", " << distance;
                 qry.clear();
 
@@ -157,20 +148,19 @@ void Controller::uploadCitiesFile() {
     }
 }
 
-void Controller::uploadFoodsFile() {
-
-    QString fileName = QFileDialog::getOpenFileName(nullptr, tr("Open File"),
-                                                    "/home/CS1D-Project", tr("Text Files (*.txt)"));
+void Controller::uploadFoodsFile()
+{
+    QString fileName = QFileDialog::getOpenFileName(nullptr, tr("Open File"), "/home/CS1D-Project", tr("Text Files (*.txt)"));
     QFile file(fileName);
 
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
         qDebug() << "Error reading file.";
-    else {
-
+    else
+    {
         QTextStream in(&file);
 
-        while (!in.atEnd()) {
-
+        while (!in.atEnd())
+        {
             QSqlQuery qry;
             QString city = in.readLine();
             QString food = in.readLine();
@@ -185,8 +175,8 @@ void Controller::uploadFoodsFile() {
 
             if (!qry.exec())
                 qDebug() << "ERROR READING .TXT ON " << city << ", " << food << ", " << cost;
-            else {
-
+            else
+            {
                 qDebug() << "FOOD DATA APPENDED TO .DB: " << city << ", " << food << ", " << cost;
                 qry.clear();
             }
@@ -201,8 +191,8 @@ void Controller::getCityCount()
 
     if (!qry.exec())
         qDebug() << "ERROR GETTING CITY COUNT";
-    else {
-
+    else
+    {
         qry.next();
         cityCount = qry.value(0).toInt() - 1;
     }
@@ -214,8 +204,8 @@ void Controller::createTripList()
     model.setTable("Distances");
     model.select();
 
-    for (int i = 0; i < model.rowCount(); i++) {
-
+    for (int i = 0; i < model.rowCount(); i++)
+    {
         Trip* entry = new Trip();
         entry->setStartCity(model.record(i).value("StartCity").toString());
         entry->setEndCity(model.record(i).value("EndCity").toString());
@@ -231,16 +221,16 @@ void Controller::createCustomTripList()
     model.setTable("Distances");
     model.select();
 
-    for (int i = 0; i < customTripListCities.size(); i++) {
-
-        for (int j = 0; j < model.rowCount(); j++) {
-
-            if (model.record(j).value("StartCity").toString() == customTripListCities[i]) {
-
-                for (int k = 0; k < customTripListCities.size(); k++) {
-
-                    if (model.record(j).value("EndCity").toString() == customTripListCities[k]) {
-
+    for (int i = 0; i < customTripListCities.size(); i++)
+    {
+        for (int j = 0; j < model.rowCount(); j++)
+        {
+            if (model.record(j).value("StartCity").toString() == customTripListCities[i])
+            {
+                for (int k = 0; k < customTripListCities.size(); k++)
+                {
+                    if (model.record(j).value("EndCity").toString() == customTripListCities[k])
+                    {
                         Trip* entry = new Trip();
 
                         entry->setStartCity(model.record(j).value("StartCity").toString());
@@ -257,8 +247,8 @@ void Controller::createCustomTripList()
 
 void Controller::resetTripList()
 {
-    for (int i = 0; i < tripList.size(); i++) {
-
+    for (int i = 0; i < tripList.size(); i++)
+    {
         delete tripList[i];
     }
 
@@ -269,8 +259,8 @@ void Controller::resetTripList()
 
 void Controller::displayTripList()
 {
-    for (int i = 0; i < tripList.size(); i++) {
-
+    for (int i = 0; i < tripList.size(); i++)
+    {
         qDebug() << tripList[i]->getStartCity() << ", " << tripList[i]->getEndCity() << ", " << tripList[i]->getDistance();
     }
 }
@@ -284,17 +274,17 @@ void Controller::createTrip(QString startCity, int numberOfCities)
     if (completedTripList.size() == numberOfCities)    // ENDS WHEN THE NUMBER OF CITIES IS REACHED.
         return;
 
-    else {
-
-        for (int i = 0; i < tripList.size(); i++) { // TRAVERSES tripList AND SEARCHES FOR THE CITY WITH THE LOWEST DISTANCE RELATIVE TO startCity
-
-            if (tripList[i]->getStartCity() == startCity) { // FINDS THE CITY WITH THE LOWEST DISTANCE AND SAVES endCity AND distance
-
-                if (tripList[i]->getDistance() < distance) {
-
-                        tempEndCity = tripList[i]->getEndCity();
-                        tempDistance = tripList[i]->getDistance();
-                        distance = tripList[i]->getDistance();
+    else
+    {
+        for (int i = 0; i < tripList.size(); i++) // TRAVERSES tripList AND SEARCHES FOR THE CITY WITH THE LOWEST DISTANCE RELATIVE TO startCity
+        {
+            if (tripList[i]->getStartCity() == startCity) // FINDS THE CITY WITH THE LOWEST DISTANCE AND SAVES endCity AND distance
+            {
+                if (tripList[i]->getDistance() < distance)
+                {
+                    tempEndCity = tripList[i]->getEndCity();
+                    tempDistance = tripList[i]->getDistance();
+                    distance = tripList[i]->getDistance();
                 }
 
                 tripList[i]->setStartCity("NULL");
@@ -304,10 +294,10 @@ void Controller::createTrip(QString startCity, int numberOfCities)
             }
         }
 
-        for (int i = 0; i < tripList.size(); i++) { // TRAVERSES tripList AND SEARCHES FOR THE CITY WITH THE LOWEST DISTANCE RELATIVE TO startCity
-
-            if (tripList[i]->getEndCity() == startCity) {
-
+        for (int i = 0; i < tripList.size(); i++) // TRAVERSES tripList AND SEARCHES FOR THE CITY WITH THE LOWEST DISTANCE RELATIVE TO startCity
+        {
+            if (tripList[i]->getEndCity() == startCity)
+            {
                 tripList[i]->setStartCity("NULL");
                 tripList[i]->setEndCity("NULL");
                 tripList[i]->setDistance(100000);
@@ -328,15 +318,15 @@ void Controller::createTrip(QString startCity, int numberOfCities)
 
 void Controller::resetTrip()
 {
-    for (int i = 0; i < completedTripList.size(); i++) {
-
+    for (int i = 0; i < completedTripList.size(); i++)
+    {
         delete completedTripList[i];
     }
 
     completedTripList.clear();
 
-    for (int i = 0; i < foodList.size(); i++) {
-
+    for (int i = 0; i < foodList.size(); i++)
+    {
         delete foodList[i];
     }
 
@@ -346,8 +336,9 @@ void Controller::resetTrip()
 void Controller::displayTrip()
 {
     qDebug() << "++++++++++FINAL TRIP+++++++++++++++++";
-    for (int i = 0; i < completedTripList.size(); i++) {
 
+    for (int i = 0; i < completedTripList.size(); i++)
+    {
         qDebug() << completedTripList[i]->getStartCity() << "--->" << completedTripList[i]->getDistance() << "--->" << completedTripList[i]->getEndCity();
     }
 }
@@ -358,12 +349,12 @@ void Controller::createFoodList()
     model.setTable("Foods");
     model.select();
 
-    for (int i = 0; i < completedTripList.size(); i++) {
-
-        for (int j = 0; j < model.rowCount(); j++) {
-
-            if (model.record(j).value("City").toString() == completedTripList[i]->getStartCity()) {
-
+    for (int i = 0; i < completedTripList.size(); i++)
+    {
+        for (int j = 0; j < model.rowCount(); j++)
+        {
+            if (model.record(j).value("City").toString() == completedTripList[i]->getStartCity())
+            {
                 food* entry = new food();
                 entry->setCity(model.record(j).value("City").toString());
                 entry->setName(model.record(j).value("Food").toString());
@@ -379,10 +370,10 @@ void Controller::createFoodList()
         }
     }
 
-    for (int i = 0; i < model.rowCount(); i++) {
-
-        if (model.record(i).value("City").toString() == completedTripList.back()->getEndCity()) {
-
+    for (int i = 0; i < model.rowCount(); i++)
+    {
+        if (model.record(i).value("City").toString() == completedTripList.back()->getEndCity())
+        {
             food* entry = new food();
             entry->setCity(model.record(i).value("City").toString());
             entry->setName(model.record(i).value("Food").toString());

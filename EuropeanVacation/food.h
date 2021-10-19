@@ -7,10 +7,12 @@
 class food : public QObject
 {
     Q_OBJECT
+
 private:
     QString city;
     QString name;
     double cost;
+
 public:
     explicit food(QObject *parent = nullptr);
     QString getCity() const;

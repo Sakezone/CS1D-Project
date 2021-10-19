@@ -19,9 +19,10 @@
 #include "trip.h"
 using namespace std;
 
-class Controller : public QObject {
-
+class Controller : public QObject
+{
     Q_OBJECT
+
 public:
     explicit Controller(QObject *parent = nullptr);
     ~Controller();
@@ -36,6 +37,9 @@ public:
     void getCityCount();
 
     // For planning trips
+
+    int cityCount;
+
     void createTripList();
     void createCustomTripList();
     void resetTripList();
@@ -50,11 +54,8 @@ public:
     QVector<food*> foodList;
     QVector<QString> customTripListCities;
 
-    int cityCount;
-
 private:
     QSqlDatabase m_database;
-
 };
 
 #endif // CONTROLLER_H
