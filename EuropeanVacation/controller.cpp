@@ -54,8 +54,6 @@ void Controller::editFoodCostQuery(QString city, QString food, double cost) {
     QString costAsString = "$" + QString::number(cost);
     QSqlQuery qry;
 
-//    qry.prepare ("UPDATE [Foods] SET City = '"+city+"', Food = '"+food+"', Cost = '"+costAsString+"' where Food = '"+food+"' and City = '"+city+"';");
-
     qry.prepare("UPDATE [Foods] set   "
                 "City       = ?,      "
                 "Food       = ?,      "
@@ -80,8 +78,6 @@ void Controller::editFoodCostQuery(QString city, QString food, double cost) {
     }
 
     qry.clear();
-
-
 }
 
 void Controller::deleteFoodQuery(QString city, QString food, double cost)
@@ -97,8 +93,6 @@ void Controller::deleteFoodQuery(QString city, QString food, double cost)
         qDebug() << food << " FROM " << city << " REMOVED!";
 
     qry.clear();
-
-
 }
 
 void Controller::addFoodQuery(QString city, QString food, double cost) {
@@ -197,6 +191,20 @@ void Controller::uploadFoodsFile() {
                 qry.clear();
             }
         }
+    }
+}
+
+void Controller::getCityCount()
+{
+    QSqlQuery qry;
+    qry.prepare("SELECT COUNT(DISTINCT StartCity) FROM Distances");
+
+    if (!qry.exec())
+        qDebug() << "ERROR GETTING CITY COUNT";
+    else {
+
+        qry.next();
+        cityCount = qry.value(0).toInt() - 1;
     }
 }
 
