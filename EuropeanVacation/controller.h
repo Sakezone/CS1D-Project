@@ -15,6 +15,7 @@
 #include<QSpinBox>
 #include<QSize>
 #include<QTableWidgetItem>
+#include <QSpinBox>
 #include "trip.h"
 using namespace std;
 
@@ -23,11 +24,8 @@ class Controller : public QObject {
     Q_OBJECT
 public:
     explicit Controller(QObject *parent = nullptr);
-
-//    Controller(Controller& controller);
     ~Controller();
-//    void createTable();
-//    void loadCities();
+
     QSqlQueryModel *getDistancesQueryModel(QString query);
     QSqlQueryModel *getFoodsQueryModel(QString query);
     void editFoodCostQuery(QString city, QString food, double cost);
@@ -37,12 +35,19 @@ public:
     void uploadFoodsFile();
 
     // For planning trips
-    QVector<Trip*> createTripList();
+    void createTripList();
+    void createCustomTripList();
+    void resetTripList();
     void displayTripList();
-    bool planTrip(QVector<Trip*> tripVector);
-    void parisTrip();
+    void createTrip(QString startCity, int numberOfCities);
+    void resetTrip();
+    void displayTrip();
+    void createFoodList();
 
     QVector<Trip*> tripList;
+    QVector<Trip*> completedTripList;
+    QVector<food*> foodList;
+    QVector<QString> customTripListCities;
 
 private:
     QSqlDatabase m_database;
