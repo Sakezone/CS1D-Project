@@ -1,0 +1,100 @@
+\hypertarget{class_controller}{}\doxysection{Controller Class Reference}
+\label{class_controller}\index{Controller@{Controller}}
+
+
+Inheritance diagram for Controller\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=138pt]{class_controller__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Controller\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=138pt]{class_controller__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_controller_af888a35f7a377692726d81332edf08ab}\label{class_controller_af888a35f7a377692726d81332edf08ab}} 
+{\bfseries Controller} (QObject $\ast$parent=nullptr)
+\item 
+\mbox{\Hypertarget{class_controller_ae486cb54c50b337223d1e5befda01c25}\label{class_controller_ae486cb54c50b337223d1e5befda01c25}} 
+QSql\+Query\+Model $\ast$ {\bfseries get\+Distances\+Query\+Model} (QString query)
+\item 
+\mbox{\Hypertarget{class_controller_ab0c97802438e3be8b0327cf76bad9a66}\label{class_controller_ab0c97802438e3be8b0327cf76bad9a66}} 
+QSql\+Query\+Model $\ast$ {\bfseries get\+Foods\+Query\+Model} (QString query)
+\item 
+\mbox{\Hypertarget{class_controller_a017343c6c32f04e737f172012b4cd30f}\label{class_controller_a017343c6c32f04e737f172012b4cd30f}} 
+void {\bfseries edit\+Food\+Cost\+Query} (QString city, QString \mbox{\hyperlink{classfood}{food}}, double cost)
+\item 
+\mbox{\Hypertarget{class_controller_ac4e2c3b9ec136a8fe0a011f492666bb9}\label{class_controller_ac4e2c3b9ec136a8fe0a011f492666bb9}} 
+void {\bfseries delete\+Food\+Query} (QString city, QString \mbox{\hyperlink{classfood}{food}}, double cost)
+\item 
+\mbox{\Hypertarget{class_controller_af4bd621f169a7fad3b06181b1ea7ee61}\label{class_controller_af4bd621f169a7fad3b06181b1ea7ee61}} 
+void {\bfseries add\+Food\+Query} (QString city, QString \mbox{\hyperlink{classfood}{food}}, double cost)
+\item 
+\mbox{\Hypertarget{class_controller_a81800bed6b54d240b5b1a17c022e5e77}\label{class_controller_a81800bed6b54d240b5b1a17c022e5e77}} 
+void {\bfseries upload\+Cities\+File} ()
+\item 
+\mbox{\Hypertarget{class_controller_afdc8856d8868069648807c8aa8a467dd}\label{class_controller_afdc8856d8868069648807c8aa8a467dd}} 
+void {\bfseries upload\+Foods\+File} ()
+\item 
+\mbox{\Hypertarget{class_controller_ade0ffa8a17ef078eda872df4d0185eb2}\label{class_controller_ade0ffa8a17ef078eda872df4d0185eb2}} 
+void {\bfseries get\+City\+Count} ()
+\item 
+\mbox{\Hypertarget{class_controller_ae54ee3196e67c4ea4aeadc01addefb2d}\label{class_controller_ae54ee3196e67c4ea4aeadc01addefb2d}} 
+void {\bfseries create\+Trip\+List} ()
+\item 
+\mbox{\Hypertarget{class_controller_a6474080c608d8cd4099e5709e17c1835}\label{class_controller_a6474080c608d8cd4099e5709e17c1835}} 
+void {\bfseries create\+Custom\+Trip\+List} ()
+\item 
+\mbox{\Hypertarget{class_controller_a46479ada5b665af4ded8710a182ab9bb}\label{class_controller_a46479ada5b665af4ded8710a182ab9bb}} 
+void {\bfseries reset\+Trip\+List} ()
+\item 
+\mbox{\Hypertarget{class_controller_ab8f8612cfff5b6be637895981f3fcfb9}\label{class_controller_ab8f8612cfff5b6be637895981f3fcfb9}} 
+void {\bfseries display\+Trip\+List} ()
+\item 
+\mbox{\Hypertarget{class_controller_a44f04515391d5889df943e07146f8c1f}\label{class_controller_a44f04515391d5889df943e07146f8c1f}} 
+void {\bfseries create\+Trip} (QString start\+City, int number\+Of\+Cities)
+\item 
+\mbox{\Hypertarget{class_controller_ac34735c31246b9b629cf7a2b7cd3d84d}\label{class_controller_ac34735c31246b9b629cf7a2b7cd3d84d}} 
+void {\bfseries reset\+Trip} ()
+\item 
+\mbox{\Hypertarget{class_controller_a7d533a679deefe2dcac44743cef57250}\label{class_controller_a7d533a679deefe2dcac44743cef57250}} 
+void {\bfseries display\+Trip} ()
+\item 
+\mbox{\Hypertarget{class_controller_a1fe26fa5f168f538fcb3d6ed1e111deb}\label{class_controller_a1fe26fa5f168f538fcb3d6ed1e111deb}} 
+void {\bfseries create\+Food\+List} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_controller_ae2378129cda8a7f7fc10de8d27e355f5}\label{class_controller_ae2378129cda8a7f7fc10de8d27e355f5}} 
+int {\bfseries city\+Count}
+\item 
+\mbox{\Hypertarget{class_controller_a92d66b49796d40a7652fe8368ac04ede}\label{class_controller_a92d66b49796d40a7652fe8368ac04ede}} 
+QVector$<$ \mbox{\hyperlink{class_trip}{Trip}} $\ast$ $>$ {\bfseries trip\+List}
+\item 
+\mbox{\Hypertarget{class_controller_afdffb1f35a0b792ce9ec54f189b3060d}\label{class_controller_afdffb1f35a0b792ce9ec54f189b3060d}} 
+QVector$<$ \mbox{\hyperlink{class_trip}{Trip}} $\ast$ $>$ {\bfseries completed\+Trip\+List}
+\item 
+\mbox{\Hypertarget{class_controller_a34913c54c76244bf3a8cec91e2bfd1c3}\label{class_controller_a34913c54c76244bf3a8cec91e2bfd1c3}} 
+QVector$<$ \mbox{\hyperlink{classfood}{food}} $\ast$ $>$ {\bfseries food\+List}
+\item 
+\mbox{\Hypertarget{class_controller_a29f39b3d2685a2cbc72754e66e77258a}\label{class_controller_a29f39b3d2685a2cbc72754e66e77258a}} 
+QVector$<$ QString $>$ {\bfseries custom\+Trip\+List\+Cities}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/silve/\+Documents/\+Git\+Hub/\+CS1\+D-\/\+Project/\+European\+Vacation/controller.\+h\item 
+C\+:/\+Users/silve/\+Documents/\+Git\+Hub/\+CS1\+D-\/\+Project/\+European\+Vacation/controller.\+cpp\end{DoxyCompactItemize}

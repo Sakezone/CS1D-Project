@@ -1,0 +1,108 @@
+\hypertarget{mainwindow_8h_source}{}\doxysection{mainwindow.\+h}
+\label{mainwindow_8h_source}\index{C:/Users/silve/Documents/GitHub/CS1D-\/Project/EuropeanVacation/mainwindow.h@{C:/Users/silve/Documents/GitHub/CS1D-\/Project/EuropeanVacation/mainwindow.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef MAINWINDOW\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define MAINWINDOW\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include "{}controller.h"{}}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{6 QT\_BEGIN\_NAMESPACE}
+\DoxyCodeLine{7 \textcolor{keyword}{namespace }Ui \{ \textcolor{keyword}{class }\mbox{\hyperlink{class_main_window}{MainWindow}}; \}}
+\DoxyCodeLine{8 QT\_END\_NAMESPACE}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{keyword}{class }\mbox{\hyperlink{class_main_window}{MainWindow}} : \textcolor{keyword}{public} QMainWindow}
+\DoxyCodeLine{11 \{}
+\DoxyCodeLine{12     Q\_OBJECT}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{keyword}{public}:}
+\DoxyCodeLine{15     \mbox{\hyperlink{class_main_window}{MainWindow}}(\mbox{\hyperlink{class_controller}{Controller}} *controller, QWidget *parent = \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{16     \mbox{\hyperlink{class_main_window}{\string~MainWindow}}();}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{keyword}{private} slots:}
+\DoxyCodeLine{19     \textcolor{keywordtype}{void} on\_clear\_pushButton\_clicked();}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21     \textcolor{keywordtype}{void} on\_login\_pushButton\_clicked();}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23     \textcolor{keywordtype}{void} on\_viewCitiesAndFoods\_pushButton\_clicked();}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25     \textcolor{keywordtype}{void} fillCitiesComboBoxes();}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27     \textcolor{keywordtype}{void} on\_returnToUserPage\_pushButton\_clicked();}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29     \textcolor{keywordtype}{void} on\_userLogout\_pushButton\_clicked();}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31     \textcolor{keywordtype}{void} on\_adminEdit\_pushButton\_clicked();}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33     \textcolor{keywordtype}{void} on\_adminViewFoods\_tableView\_activated(\textcolor{keyword}{const} QModelIndex \&index);}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35     \textcolor{keywordtype}{void} on\_contactUs\_pushButton\_clicked();}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37     \textcolor{keywordtype}{void} on\_submit\_pushButton\_clicked();}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39     \textcolor{keywordtype}{void} on\_return\_pushButton\_clicked();}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41     \textcolor{keywordtype}{void} on\_userLogout\_Pushbutton\_clicked();}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43     \textcolor{keywordtype}{void} on\_adminLogout\_pushButton\_clicked();}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45     \textcolor{keywordtype}{void} on\_userSelectCities\_comboBox\_currentTextChanged(\textcolor{keyword}{const} QString \&arg1);}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47     \textcolor{keywordtype}{void} on\_adminChooseCities\_comboBox\_currentTextChanged(\textcolor{keyword}{const} QString \&arg1);}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49     \textcolor{keywordtype}{void} on\_editPrice\_pushButton\_clicked();}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51     \textcolor{keywordtype}{void} resetAdminEditPage();}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53     \textcolor{keywordtype}{void} on\_returnToAdminPage\_pushButton\_clicked();}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55     \textcolor{keywordtype}{void} on\_deleteFood\_pushButton\_clicked();}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57     \textcolor{keywordtype}{void} on\_addNewFood\_pushButton\_clicked();}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59     \textcolor{keywordtype}{void} on\_resetEditPage\_pushButton\_clicked();}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61     \textcolor{keywordtype}{void} on\_adminUpload\_pushButton\_clicked();}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63     \textcolor{keywordtype}{void} on\_returnToAdminPage\_pushButton2\_clicked();}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65     \textcolor{keywordtype}{void} on\_adminUploadChooseCities\_comboBox\_currentTextChanged(\textcolor{keyword}{const} QString \&arg1);}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67     \textcolor{keywordtype}{void} on\_adminUploadCities\_pushButton\_clicked();}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69     \textcolor{keywordtype}{void} on\_adminUploadFoods\_pushButton\_clicked();}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71     \textcolor{keywordtype}{void} on\_planTrip\_pushButton\_clicked();}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73     \textcolor{keywordtype}{void} on\_parisTrip\_pushButton\_clicked();}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{75     \textcolor{keywordtype}{void} on\_planTripPageBack\_pushButton\_clicked();}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{77     \textcolor{keywordtype}{void} on\_pickTripBack\_pushButton\_clicked();}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{79     \textcolor{keywordtype}{void} on\_autoPlanner\_pushButton\_clicked();}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81     \textcolor{keywordtype}{void} on\_autoTripReset\_pushButton\_clicked();}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83     \textcolor{keywordtype}{void} on\_purchaseFoods\_pushButton\_clicked();}
+\DoxyCodeLine{84 }
+\DoxyCodeLine{85     \textcolor{keywordtype}{void} on\_customPlanner\_pushButton\_clicked();}
+\DoxyCodeLine{86 }
+\DoxyCodeLine{87     \textcolor{keywordtype}{void} on\_customTripBack\_pushButton\_clicked();}
+\DoxyCodeLine{88 }
+\DoxyCodeLine{89     \textcolor{keywordtype}{void} on\_customTripSelect\_tableView\_doubleClicked(\textcolor{keyword}{const} QModelIndex \&index);}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{91     \textcolor{keywordtype}{void} on\_customTripReset\_pushButton\_clicked();}
+\DoxyCodeLine{92 }
+\DoxyCodeLine{93     \textcolor{keywordtype}{void} on\_createCustomTrip\_pushButton\_clicked();}
+\DoxyCodeLine{94 }
+\DoxyCodeLine{95     \textcolor{keywordtype}{void} on\_customPurchaseFoods\_pushButton\_clicked();}
+\DoxyCodeLine{96 }
+\DoxyCodeLine{97 \textcolor{keyword}{private}:}
+\DoxyCodeLine{98     Ui::MainWindow *ui;}
+\DoxyCodeLine{99     \mbox{\hyperlink{class_controller}{Controller}} *m\_controller;}
+\DoxyCodeLine{100 \};}
+\DoxyCodeLine{101 }
+\DoxyCodeLine{102 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// MAINWINDOW\_H}}
+
+\end{DoxyCode}
