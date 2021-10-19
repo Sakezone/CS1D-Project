@@ -10,6 +10,7 @@ MainWindow::MainWindow(Controller *controller, QWidget *parent)
 {
     ui->setupUi(this);
     ui->stackedWidget->setCurrentWidget(ui->login_page);
+    m_controller->getCityCount();
     fillCitiesComboBoxes();
 
     /*QPixMap and QPalette used to set the background.*/
@@ -31,6 +32,7 @@ void MainWindow::fillCitiesComboBoxes()
     ui->adminChooseCities_comboBox->setModel(m_controller->getDistancesQueryModel("select DISTINCT StartCity from Distances ORDER BY StartCity ASC;"));
     ui->adminUploadChooseCities_comboBox->setModel(m_controller->getDistancesQueryModel("select DISTINCT StartCity from Distances ORDER BY StartCity ASC;"));
     ui->autoTripCity_comboBox->setModel(m_controller->getDistancesQueryModel("select DISTINCT StartCity from Distances ORDER BY StartCity ASC;"));
+    ui->selectNumberOfCities_spinBox->setMaximum(m_controller->cityCount);
 }
 
 void MainWindow::on_clear_pushButton_clicked()
@@ -294,7 +296,6 @@ void MainWindow::on_adminUploadCities_pushButton_clicked()
 {
     m_controller->uploadCitiesFile();
     fillCitiesComboBoxes();
-    ui->selectNumberOfCities_spinBox->setMaximum(12);
 }
 
 
@@ -498,62 +499,71 @@ void MainWindow::on_customTripReset_pushButton_clicked()
 
 void MainWindow::on_createCustomTrip_pushButton_clicked()
 {
-    QString startCity = m_controller->customTripListCities[0];
-    int numberOfCities = m_controller->customTripListCities.size() - 1;
-    int totalDistance = 0;
 
-    m_controller->createCustomTripList();
-    m_controller->displayTripList();
-    m_controller->createTrip(startCity, numberOfCities);
-    m_controller->displayTrip();
+    if (m_controller->customTripListCities.size() > 1) {
 
-    ui->customTripDisplay_tableWidget->setRowCount(m_controller->completedTripList.size());
-    ui->customTripDisplay_tableWidget->setColumnCount(3);
+        QString startCity = m_controller->customTripListCities[0];
+        int numberOfCities = m_controller->customTripListCities.size() - 1;
+        int totalDistance = 0;
 
-    for (int i = 0; i < m_controller->completedTripList.size(); i++) {
+        m_controller->createCustomTripList();
+        m_controller->displayTripList();
+        m_controller->createTrip(startCity, numberOfCities);
+        m_controller->displayTrip();
 
-        QTableWidgetItem *startCity = new QTableWidgetItem();
-        QTableWidgetItem *endCity = new QTableWidgetItem();
-        QTableWidgetItem *distance = new QTableWidgetItem();
+        ui->customTripDisplay_tableWidget->setRowCount(m_controller->completedTripList.size());
+        ui->customTripDisplay_tableWidget->setColumnCount(3);
 
-        startCity->setText(m_controller->completedTripList[i]->getStartCity());
-        endCity->setText(m_controller->completedTripList[i]->getEndCity());
-        distance->setText(QString::number(m_controller->completedTripList[i]->getDistance()));
+        for (int i = 0; i < m_controller->completedTripList.size(); i++) {
 
-        ui->customTripDisplay_tableWidget->setItem(i, 0, startCity);
-        ui->customTripDisplay_tableWidget->setItem(i, 1, endCity);
-        ui->customTripDisplay_tableWidget->setItem(i, 2, distance);
+            QTableWidgetItem *startCity = new QTableWidgetItem();
+            QTableWidgetItem *endCity = new QTableWidgetItem();
+            QTableWidgetItem *distance = new QTableWidgetItem();
 
-        totalDistance = totalDistance + m_controller->completedTripList[i]->getDistance();
+            startCity->setText(m_controller->completedTripList[i]->getStartCity());
+            endCity->setText(m_controller->completedTripList[i]->getEndCity());
+            distance->setText(QString::number(m_controller->completedTripList[i]->getDistance()));
+
+            ui->customTripDisplay_tableWidget->setItem(i, 0, startCity);
+            ui->customTripDisplay_tableWidget->setItem(i, 1, endCity);
+            ui->customTripDisplay_tableWidget->setItem(i, 2, distance);
+
+            totalDistance = totalDistance + m_controller->completedTripList[i]->getDistance();
+        }
+
+        ui->customTripTotalDistance_label->setText(QString::number(totalDistance));
+        ui->customTripDisplay_tableWidget->resizeColumnsToContents();
+
+        // -FOOD SECTION-
+
+        m_controller->createFoodList();
+
+        ui->customPurchaseFoods_tableWidget->setRowCount(m_controller->foodList.size());
+        ui->customPurchaseFoods_tableWidget->setColumnCount(4);
+
+        for (int i = 0; i < m_controller->foodList.size(); i++) {
+
+            QTableWidgetItem *city = new QTableWidgetItem();
+            QTableWidgetItem *food = new QTableWidgetItem();
+            QTableWidgetItem *cost = new QTableWidgetItem();
+
+            city->setText(m_controller->foodList[i]->getCity());
+            food->setText(m_controller->foodList[i]->getName());
+            cost->setText(QString::number(m_controller->foodList[i]->getCost()));
+
+            ui->customPurchaseFoods_tableWidget->setItem(i, 0, city);
+            ui->customPurchaseFoods_tableWidget->setItem(i, 1, food);
+            ui->customPurchaseFoods_tableWidget->setItem(i, 2, cost);
+            ui->customPurchaseFoods_tableWidget->setCellWidget(i, 3, new QSpinBox);
+        }
+
+        ui->customPurchaseFoods_tableWidget->resizeColumnsToContents();
     }
 
-    ui->customTripTotalDistance_label->setText(QString::number(totalDistance));
-    ui->customTripDisplay_tableWidget->resizeColumnsToContents();
+    else {
 
-    // -FOOD SECTION-
-
-    m_controller->createFoodList();
-
-    ui->customPurchaseFoods_tableWidget->setRowCount(m_controller->foodList.size());
-    ui->customPurchaseFoods_tableWidget->setColumnCount(4);
-
-    for (int i = 0; i < m_controller->foodList.size(); i++) {
-
-        QTableWidgetItem *city = new QTableWidgetItem();
-        QTableWidgetItem *food = new QTableWidgetItem();
-        QTableWidgetItem *cost = new QTableWidgetItem();
-
-        city->setText(m_controller->foodList[i]->getCity());
-        food->setText(m_controller->foodList[i]->getName());
-        cost->setText(QString::number(m_controller->foodList[i]->getCost()));
-
-        ui->customPurchaseFoods_tableWidget->setItem(i, 0, city);
-        ui->customPurchaseFoods_tableWidget->setItem(i, 1, food);
-        ui->customPurchaseFoods_tableWidget->setItem(i, 2, cost);
-        ui->customPurchaseFoods_tableWidget->setCellWidget(i, 3, new QSpinBox);
+        QMessageBox::information(this, "Invalid", "Please select at least 2 cities!");
     }
-
-    ui->customPurchaseFoods_tableWidget->resizeColumnsToContents();
 }
 
 void MainWindow::on_customPurchaseFoods_pushButton_clicked()

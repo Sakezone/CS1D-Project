@@ -33,6 +33,7 @@ public:
     void addFoodQuery(QString city, QString food, double cost);
     void uploadCitiesFile();
     void uploadFoodsFile();
+    void getCityCount();
 
     // For planning trips
     void createTripList();
@@ -48,6 +49,8 @@ public:
     QVector<Trip*> completedTripList;
     QVector<food*> foodList;
     QVector<QString> customTripListCities;
+
+    int cityCount;
 
 private:
     QSqlDatabase m_database;
