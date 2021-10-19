@@ -51,20 +51,20 @@ void MainWindow::on_login_pushButton_clicked()
     QString usernameInput = ui->inputUsername_lineEdit->text();
     QString passwordInput = ui->inputPassword_lineEdit->text();
 
-    if (usernameInput == ADMIN_USERNAME && passwordInput == ADMIN_PASSWORD) {
-
+    if (usernameInput == ADMIN_USERNAME && passwordInput == ADMIN_PASSWORD)
+    {
         QMessageBox::information(this, "Success", "Username and Password are correct\nLogging into Admin");
         on_clear_pushButton_clicked();
         ui->stackedWidget->setCurrentWidget(ui->admin_page);
     }
-    else if (usernameInput == USER_USERNAME && usernameInput == USER_PASSWORD) {
-
+    else if (usernameInput == USER_USERNAME && usernameInput == USER_PASSWORD)
+    {
         QMessageBox::information(this, "Success", "Username and Password are correct\nLogging into User");
         on_clear_pushButton_clicked();
         ui->stackedWidget->setCurrentWidget(ui->user_page);
     }
-    else {
-
+    else
+    {
         QMessageBox::information(this, "Invalid", "Username and Password are incorrect");
         on_clear_pushButton_clicked();
     }
@@ -121,12 +121,8 @@ void MainWindow::on_adminViewFoods_tableView_activated(const QModelIndex &index)
     QString currentFood;
     QString currentCity;
 
-    if (index.column() == 1) {
-
-        //resetSouvenirScreenLabels();
-    }
-    else if (index.isValid()) {
-
+    if (index.isValid())
+    {
         QSqlQuery qry;
         double price;
         currentFood = index.data().toString();
@@ -134,14 +130,12 @@ void MainWindow::on_adminViewFoods_tableView_activated(const QModelIndex &index)
         currentCity = ui->adminChooseCities_comboBox->currentText();
         qry.prepare("select Cost from Foods where City = '"+currentCity+"' and Food = '"+currentFood+"';");
 
-        if (!qry.exec()) {
-
+        if (!qry.exec())
             qDebug() << "ERROR: on_adminViewFoods_tableView_activated(const QModelIndex &index))";
-        }
-        else {
-
-            if (qry.first()) {
-
+        else
+        {
+            if (qry.first())
+            {
                 qDebug() << qry.value(0);
                 QString test = qry.value(0).toString();
                 test.remove(0,1);
@@ -183,8 +177,8 @@ void MainWindow::on_editPrice_pushButton_clicked()
         QMessageBox::warning(this, "Invalid", "No food selected!");
     else if (ui->editPrice_doubleSpinBox->value() < 0.01)
         QMessageBox::warning(this, "Invalid", "Invalid price!");
-    else {
-
+    else
+    {
         QString food = ui->editFoodFood_label->text();
         QString city = ui->editFoodCity_label->text();
         double cost = ui->editPrice_doubleSpinBox->value();
@@ -193,8 +187,8 @@ void MainWindow::on_editPrice_pushButton_clicked()
                 QMessageBox::question(this, "Edit", "Are you sure you want to edit " + food + "?",
                                       QMessageBox::Yes | QMessageBox::No);
 
-        if (reply == QMessageBox::Yes) {
-
+        if (reply == QMessageBox::Yes)
+        {
             m_controller->editFoodCostQuery(city, food, cost);
             resetAdminEditPage();
             on_adminChooseCities_comboBox_currentTextChanged(city);
@@ -213,8 +207,8 @@ void MainWindow::on_deleteFood_pushButton_clicked()
 {
     if (ui->editFoodFood_label->text() == "No Food Selected!")
         QMessageBox::warning(this, "Invalid", "No food selected!");
-    else {
-
+    else
+    {
         QString food = ui->editFoodFood_label->text();
         QString city = ui->editFoodCity_label->text();
         double cost = ui->editPrice_doubleSpinBox->value();
@@ -223,8 +217,8 @@ void MainWindow::on_deleteFood_pushButton_clicked()
                 QMessageBox::question(this, "Delete", "Are you sure you want to delete " + food + "?",
                                       QMessageBox::Yes | QMessageBox::No);
 
-        if (reply == QMessageBox::Yes) {
-
+        if (reply == QMessageBox::Yes)
+        {
             m_controller->deleteFoodQuery(city, food, cost);
             resetAdminEditPage();
             on_adminChooseCities_comboBox_currentTextChanged(city);
@@ -243,8 +237,8 @@ void MainWindow::on_addNewFood_pushButton_clicked()
         QMessageBox::warning(this, "Invalid", "New food has no name!");
     else if (ui->editFoodCity_label->text() == "No City Selected!")
         QMessageBox::warning(this, "Invalid", "No city selected for new food!");
-    else {
-
+    else
+    {
         QString city = ui->editFoodCity_label->text();
         QString food = ui->newFood_lineEdit->text();
         double cost  = ui->newFoodPrice_doubleSpinBox->value();
@@ -253,8 +247,8 @@ void MainWindow::on_addNewFood_pushButton_clicked()
                 QMessageBox::question(this, "Add", "Are you sure you want to add " + food + " to " + city + "?",
                                       QMessageBox::Yes | QMessageBox::No);
 
-        if (reply == QMessageBox::Yes) {
-
+        if (reply == QMessageBox::Yes)
+        {
             m_controller->addFoodQuery(city, food, cost);
 
             resetAdminEditPage();
@@ -322,8 +316,8 @@ void MainWindow::on_parisTrip_pushButton_clicked()
     ui->autoTrip_tableWidget->setRowCount(m_controller->completedTripList.size());
     ui->autoTrip_tableWidget->setColumnCount(3);
 
-    for (int i = 0; i < m_controller->completedTripList.size(); i++) {
-
+    for (int i = 0; i < m_controller->completedTripList.size(); i++)
+    {
         QTableWidgetItem *startCity = new QTableWidgetItem();
         QTableWidgetItem *endCity = new QTableWidgetItem();
         QTableWidgetItem *distance = new QTableWidgetItem();
@@ -349,8 +343,8 @@ void MainWindow::on_parisTrip_pushButton_clicked()
     ui->purchaseFoods_tableWidget->setRowCount(m_controller->foodList.size());
     ui->purchaseFoods_tableWidget->setColumnCount(4);
 
-    for (int i = 0; i < m_controller->foodList.size(); i++) {
-
+    for (int i = 0; i < m_controller->foodList.size(); i++)
+    {
         QTableWidgetItem *city = new QTableWidgetItem();
         QTableWidgetItem *food = new QTableWidgetItem();
         QTableWidgetItem *cost = new QTableWidgetItem();
@@ -413,16 +407,16 @@ void MainWindow::on_purchaseFoods_pushButton_clicked()
 
     double totalCost = 0;
 
-    for (int i = 0; i < ui->purchaseFoods_tableWidget->rowCount(); i++) {
-
+    for (int i = 0; i < ui->purchaseFoods_tableWidget->rowCount(); i++)
+    {
         int val = static_cast<QSpinBox*>(ui->purchaseFoods_tableWidget->cellWidget(i, 3))->value();
         QTableWidgetItem *cost = ui->purchaseFoods_tableWidget->item(i,2);
         totalCost = totalCost + (cost->text().toDouble() * val);
 
         int quantity = static_cast<QSpinBox*>(ui->purchaseFoods_tableWidget->cellWidget(i, 3))->value();
 
-        if (quantity > 0) {
-
+        if (quantity > 0)
+        {
             QString name = ui->purchaseFoods_tableWidget->item(i,1)->text();
             double costs = cost->text().toDouble() * quantity;
 
@@ -454,18 +448,18 @@ void MainWindow::on_customTripSelect_tableView_doubleClicked(const QModelIndex &
 {
     bool found = false;
 
-    for (int i = 0; i < m_controller->customTripListCities.size(); i++) {
-
-        if (m_controller->customTripListCities[i] == index.data()) {
-
+    for (int i = 0; i < m_controller->customTripListCities.size(); i++)
+    {
+        if (m_controller->customTripListCities[i] == index.data())
+        {
             found = true;
             QMessageBox::information(this, "Invalid", "Please select a different city!");
             break;
         }
     }
 
-    if (!found) {
-
+    if (!found)
+    {
         m_controller->customTripListCities.append(index.data().toString());
         ui->customTrip_textBrowser->append(index.data().toString());
     }
@@ -500,8 +494,8 @@ void MainWindow::on_customTripReset_pushButton_clicked()
 void MainWindow::on_createCustomTrip_pushButton_clicked()
 {
 
-    if (m_controller->customTripListCities.size() > 1) {
-
+    if (m_controller->customTripListCities.size() > 1)
+    {
         QString startCity = m_controller->customTripListCities[0];
         int numberOfCities = m_controller->customTripListCities.size() - 1;
         int totalDistance = 0;
@@ -514,8 +508,8 @@ void MainWindow::on_createCustomTrip_pushButton_clicked()
         ui->customTripDisplay_tableWidget->setRowCount(m_controller->completedTripList.size());
         ui->customTripDisplay_tableWidget->setColumnCount(3);
 
-        for (int i = 0; i < m_controller->completedTripList.size(); i++) {
-
+        for (int i = 0; i < m_controller->completedTripList.size(); i++)
+        {
             QTableWidgetItem *startCity = new QTableWidgetItem();
             QTableWidgetItem *endCity = new QTableWidgetItem();
             QTableWidgetItem *distance = new QTableWidgetItem();
@@ -541,8 +535,8 @@ void MainWindow::on_createCustomTrip_pushButton_clicked()
         ui->customPurchaseFoods_tableWidget->setRowCount(m_controller->foodList.size());
         ui->customPurchaseFoods_tableWidget->setColumnCount(4);
 
-        for (int i = 0; i < m_controller->foodList.size(); i++) {
-
+        for (int i = 0; i < m_controller->foodList.size(); i++)
+        {
             QTableWidgetItem *city = new QTableWidgetItem();
             QTableWidgetItem *food = new QTableWidgetItem();
             QTableWidgetItem *cost = new QTableWidgetItem();
@@ -560,10 +554,8 @@ void MainWindow::on_createCustomTrip_pushButton_clicked()
         ui->customPurchaseFoods_tableWidget->resizeColumnsToContents();
     }
 
-    else {
-
+    else
         QMessageBox::information(this, "Invalid", "Please select at least 2 cities!");
-    }
 }
 
 void MainWindow::on_customPurchaseFoods_pushButton_clicked()
@@ -572,16 +564,16 @@ void MainWindow::on_customPurchaseFoods_pushButton_clicked()
 
     double totalCost = 0;
 
-    for (int i = 0; i < ui->customPurchaseFoods_tableWidget->rowCount(); i++) {
-
+    for (int i = 0; i < ui->customPurchaseFoods_tableWidget->rowCount(); i++)
+    {
         int val = static_cast<QSpinBox*>(ui->customPurchaseFoods_tableWidget->cellWidget(i, 3))->value();
         QTableWidgetItem *cost = ui->customPurchaseFoods_tableWidget->item(i,2);
         totalCost = totalCost + (cost->text().toDouble() * val);
 
         int quantity = static_cast<QSpinBox*>(ui->customPurchaseFoods_tableWidget->cellWidget(i, 3))->value();
 
-        if (quantity > 0) {
-
+        if (quantity > 0)
+        {
             QString name = ui->customPurchaseFoods_tableWidget->item(i,1)->text();
             double costs = cost->text().toDouble() * quantity;
 
