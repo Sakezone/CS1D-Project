@@ -74,6 +74,26 @@ private slots:
 
     void on_planTripPageBack_pushButton_clicked();
 
+    void on_pickTripBack_pushButton_clicked();
+
+    void on_autoPlanner_pushButton_clicked();
+
+    void on_autoTripReset_pushButton_clicked();
+
+    void on_purchaseFoods_pushButton_clicked();
+
+    void on_customPlanner_pushButton_clicked();
+
+    void on_customTripBack_pushButton_clicked();
+
+    void on_customTripSelect_tableView_doubleClicked(const QModelIndex &index);
+
+    void on_customTripReset_pushButton_clicked();
+
+    void on_createCustomTrip_pushButton_clicked();
+
+    void on_customPurchaseFoods_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     Controller *m_controller;

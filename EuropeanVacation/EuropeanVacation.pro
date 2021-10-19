@@ -10,12 +10,14 @@ CONFIG += c++11
 
 SOURCES += \
     controller.cpp \
+    food.cpp \
     main.cpp \
     mainwindow.cpp \
     trip.cpp
 
 HEADERS += \
     controller.h \
+    food.h \
     mainwindow.h \
     trip.h
 

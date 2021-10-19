@@ -3,16 +3,21 @@
 
 #include <QObject>
 #include <QString>
+#include "food.h"
 
 class Trip : public QObject
 {
     Q_OBJECT
+
 signals:
+
 public slots:
+
 private:
     QString startCity;
     QString endCity;
     int distance;
+
 public:
     explicit Trip(QObject *parent = nullptr);
     QString getStartCity() const;
