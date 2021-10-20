@@ -205,6 +205,7 @@ void MainWindow::on_returnToAdminPage_pushButton_clicked()
 
 void MainWindow::on_deleteFood_pushButton_clicked()
 {
+
     if (ui->editFoodFood_label->text() == "No Food Selected!")
         QMessageBox::warning(this, "Invalid", "No food selected!");
     else
@@ -226,9 +227,9 @@ void MainWindow::on_deleteFood_pushButton_clicked()
     }
 }
 
-
 void MainWindow::on_addNewFood_pushButton_clicked()
 {
+
     if (ui->newFood_lineEdit->text() == "" && ui->newFoodPrice_doubleSpinBox->value() <= 0.00)
         QMessageBox::warning(this, "Invalid", "New food has no name and price!");
     else if (ui->newFoodPrice_doubleSpinBox->value() <= 0.00)
@@ -406,6 +407,9 @@ void MainWindow::on_purchaseFoods_pushButton_clicked()
     ui->foodReceipt_tableView->clear();
 
     double totalCost = 0;
+    double totalCostOfCity = 0;
+    QTableWidgetItem *city = ui->purchaseFoods_tableWidget->item(0,0);
+    QString tempCity = city->text();
 
     for (int i = 0; i < ui->purchaseFoods_tableWidget->rowCount(); i++)
     {
@@ -417,6 +421,11 @@ void MainWindow::on_purchaseFoods_pushButton_clicked()
 
         if (quantity > 0)
         {
+//            if (tempCity != ui->purchaseFoods_tableWidget->item(i,0)->text();) {
+
+//                ui->foodReceipt_tableView
+//            }
+
             QString name = ui->purchaseFoods_tableWidget->item(i,1)->text();
             double costs = cost->text().toDouble() * quantity;
 
@@ -424,6 +433,9 @@ void MainWindow::on_purchaseFoods_pushButton_clicked()
             ui->foodReceipt_tableView->append(cost->text() + " x" + QString::number(quantity));
             ui->foodReceipt_tableView->append(QString::number(costs));
             ui->foodReceipt_tableView->append("----------------");
+
+            totalCostOfCity += costs;
+            QString tempCity = ui->purchaseFoods_tableWidget->item(i,0)->text();
         }
     }
 
