@@ -421,10 +421,14 @@ void MainWindow::on_purchaseFoods_pushButton_clicked()
 
         if (quantity > 0)
         {
-//            if (tempCity != ui->purchaseFoods_tableWidget->item(i,0)->text();) {
+            if (tempCity != ui->purchaseFoods_tableWidget->item(i,0)->text()) {
 
-//                ui->foodReceipt_tableView
-//            }
+//                ui->foodReceipt_tableView->append("----------------");
+                ui->foodReceipt_tableView->append(tempCity + " total: $" + QString::number(totalCostOfCity));
+                ui->foodReceipt_tableView->append("----------------");
+
+                totalCostOfCity = 0;
+            }
 
             QString name = ui->purchaseFoods_tableWidget->item(i,1)->text();
             double costs = cost->text().toDouble() * quantity;
@@ -435,9 +439,11 @@ void MainWindow::on_purchaseFoods_pushButton_clicked()
             ui->foodReceipt_tableView->append("----------------");
 
             totalCostOfCity += costs;
-            QString tempCity = ui->purchaseFoods_tableWidget->item(i,0)->text();
+            tempCity = ui->purchaseFoods_tableWidget->item(i,0)->text();
         }
     }
+    ui->foodReceipt_tableView->append(tempCity + " total: $" + QString::number(totalCostOfCity));
+    ui->foodReceipt_tableView->append("----------------");
 
     ui->totalCost_label->setText("$" + QString::number(totalCost));
 }
@@ -575,6 +581,9 @@ void MainWindow::on_customPurchaseFoods_pushButton_clicked()
     ui->customFoodReceipt_tableView->clear();
 
     double totalCost = 0;
+    double totalCostOfCity = 0;
+    QTableWidgetItem *city = ui->customPurchaseFoods_tableWidget->item(0,0);
+    QString tempCity = city->text();
 
     for (int i = 0; i < ui->customPurchaseFoods_tableWidget->rowCount(); i++)
     {
@@ -586,6 +595,14 @@ void MainWindow::on_customPurchaseFoods_pushButton_clicked()
 
         if (quantity > 0)
         {
+            if (tempCity != ui->customPurchaseFoods_tableWidget->item(i,0)->text()) {
+
+//                ui->foodReceipt_tableView->append("----------------");
+                ui->customFoodReceipt_tableView->append(tempCity + " total: $" + QString::number(totalCostOfCity));
+                ui->customFoodReceipt_tableView->append("----------------");
+
+                totalCostOfCity = 0;
+            }
             QString name = ui->customPurchaseFoods_tableWidget->item(i,1)->text();
             double costs = cost->text().toDouble() * quantity;
 
@@ -593,8 +610,14 @@ void MainWindow::on_customPurchaseFoods_pushButton_clicked()
             ui->customFoodReceipt_tableView->append(cost->text() + " x" + QString::number(quantity));
             ui->customFoodReceipt_tableView->append(QString::number(costs));
             ui->customFoodReceipt_tableView->append("----------------");
+
+            totalCostOfCity += costs;
+            tempCity = ui->customPurchaseFoods_tableWidget->item(i,0)->text();
         }
     }
+
+    ui->customFoodReceipt_tableView->append(tempCity + " total: $" + QString::number(totalCostOfCity));
+    ui->customFoodReceipt_tableView->append("----------------");
 
     ui->customTotalCost_label->setText("$" + QString::number(totalCost));
 }
