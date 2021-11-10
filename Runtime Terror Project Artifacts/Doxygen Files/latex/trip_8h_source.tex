@@ -1,0 +1,37 @@
+\hypertarget{trip_8h_source}{}\doxysection{trip.\+h}
+\label{trip_8h_source}\index{C:/Users/silve/Documents/GitHub/CS1D-\/Project/EuropeanVacation/trip.h@{C:/Users/silve/Documents/GitHub/CS1D-\/Project/EuropeanVacation/trip.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef TRIP\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define TRIP\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <QObject>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <QString>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}food.h"{}}}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8 \textcolor{keyword}{class }\mbox{\hyperlink{class_trip}{Trip}} : \textcolor{keyword}{public} QObject}
+\DoxyCodeLine{9 \{}
+\DoxyCodeLine{10     Q\_OBJECT}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 signals:}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{keyword}{public} slots:}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{keyword}{private}:}
+\DoxyCodeLine{17     QString startCity;}
+\DoxyCodeLine{18     QString endCity;}
+\DoxyCodeLine{19     \textcolor{keywordtype}{int} distance;}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 \textcolor{keyword}{public}:}
+\DoxyCodeLine{22     \textcolor{keyword}{explicit} \mbox{\hyperlink{class_trip}{Trip}}(QObject *parent = \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{23     QString getStartCity() \textcolor{keyword}{const};}
+\DoxyCodeLine{24     QString getEndCity() \textcolor{keyword}{const};}
+\DoxyCodeLine{25     \textcolor{keywordtype}{int} getDistance() \textcolor{keyword}{const};}
+\DoxyCodeLine{26     \textcolor{keywordtype}{void} setStartCity(\textcolor{keyword}{const} QString \&item);}
+\DoxyCodeLine{27     \textcolor{keywordtype}{void} setEndCity(\textcolor{keyword}{const} QString \&item);}
+\DoxyCodeLine{28     \textcolor{keywordtype}{void} setDistance(\textcolor{keywordtype}{int});}
+\DoxyCodeLine{29 \};}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// TRIP\_H}}
+
+\end{DoxyCode}
